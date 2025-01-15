@@ -61,6 +61,7 @@ in
     nix-output-monitor
     nmap
     nnn
+    obsidian
     pciutils
     pyenv
     ripgrep
