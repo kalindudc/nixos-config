@@ -1,10 +1,9 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ 
-      ./hardware-configuration.nix
-    ];
+  imports = [ 
+    ./hardware-configuration.nix
+  ];
 
   networking.hostName = "beagle";
 
@@ -20,9 +19,8 @@
     isNormalUser = true;
     description = "Kalindu De Costa";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      gh
-    ];
+    packages = with pkgs; [ ];
+    shell = pkgs.zsh;
   };
 
   programs.firefox.enable = true;
@@ -38,6 +36,8 @@
     vscode
     wget
   ];
+
+
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   # tl;dr: just don't change it

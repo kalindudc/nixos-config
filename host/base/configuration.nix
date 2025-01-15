@@ -46,6 +46,9 @@
   # Allow unfree packages.
   nixpkgs.config.allowUnfree = true;
 
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
+
   # Default packages.
   environment.systemPackages = with pkgs; [
     git
@@ -53,6 +56,7 @@
     neovim
     vscode
     wget
+    zsh
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

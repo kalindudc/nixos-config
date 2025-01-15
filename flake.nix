@@ -20,7 +20,8 @@
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.kalindu = import ./home.nix;
+          home-manager.backupFileExtension = "rebuild";
+          home-manager.users.kalindu = import ./host/beagle/home.nix;
         }
       ];
     };
