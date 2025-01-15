@@ -15,11 +15,19 @@
   # Set your time zone.
   time.timeZone = "America/Toronto";
 
-  # Enable the KDE Plasma Desktop Environment.
+  # Enable the KDE Plasma Desktop Environment, for now...
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
-
   services.gnome.gnome-keyring.enable = true;
+
+  users.users.kalindu = {
+    isNormalUser = true;
+    description = "Kalindu De Costa";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+      gh
+    ];
+  };
 
   programs.firefox.enable = true;
   programs.gnupg.agent = {

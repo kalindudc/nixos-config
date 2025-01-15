@@ -39,14 +39,6 @@
   };
 
   # services.xserver.libinput.enable = true;
-  
-  users.users.kalindu = {
-    isNormalUser = true;
-    description = "Kalindu De Costa";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    ];
-  };
 
   # Install firefox.
   programs.firefox.enable = true;
