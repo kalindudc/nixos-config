@@ -46,6 +46,7 @@ in
     fzf
     gawk
     git
+    gitleaks
     gh
     ghostty
     gnupg
