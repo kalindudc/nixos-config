@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
@@ -35,13 +31,15 @@
     enableSSHSupport = true;
   };
 
-
   environment.systemPackages = with pkgs; [
     git
     vim
     neovim
     vscode
+    wget
   ];
 
+  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+  # tl;dr: just don't change it
   system.stateVersion = "24.11";
 }

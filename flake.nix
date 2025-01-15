@@ -8,8 +8,8 @@
     nixosConfigurations.beagle = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ 
-        ./hosts/base/configuration.nix
-        ./hosts/beagle/configuration.nix 
+        ./host/base/configuration.nix
+        ./host/beagle/configuration.nix 
       ];
     };
   };

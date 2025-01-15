@@ -52,9 +52,12 @@
     vim
     neovim
     vscode
+    wget
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+  # tl;dr: just don't change it
   system.stateVersion = "24.11";
 }
