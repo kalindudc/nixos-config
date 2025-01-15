@@ -86,6 +86,7 @@ in
     enable = true;
     enableZshIntegration = true;
   };
+  programs.gpg.enable = true;
 
   # basic configuration of git, please change to your own
   programs.git = {
@@ -123,11 +124,12 @@ in
     gnome-keyring.enable = true;
     gpg-agent = {
       enable = true;
-      defaultCacheTtl = 1800;
+      defaultCacheTtl = 21600;
+      maxCacheTtl = 43200;
       enableSshSupport = true;
+      enableZshIntegration = true;
     };
   };
-  programs.gpg.enable = true;
 
   # same as https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "24.11";
