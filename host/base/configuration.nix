@@ -27,14 +27,14 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    
+
     # media-session.enable = true;
   };
 
@@ -60,6 +60,14 @@
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # garbage collection and boot loader menu
+  boot.loader.systemd-boot.configurationLimit = 10;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than +10";
+  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   # tl;dr: just don't change it
