@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ 
+  imports = [
     ./hardware-configuration.nix
   ];
 
@@ -10,8 +10,16 @@
   # Set your time zone.
   time.timeZone = "America/Toronto";
 
+  services.displayManager.sddm = {
+    enable = true;
+    theme = "breeze";
+    wayland = {
+      enable = true;
+      compositor = "weston";
+    };
+  };
+
   # Enable the KDE Plasma Desktop Environment, for now...
-  services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
   services.gnome.gnome-keyring.enable = true;
 
