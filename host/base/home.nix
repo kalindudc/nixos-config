@@ -12,6 +12,9 @@ in
 {
   home.username = userData.username;
   home.homeDirectory = userData.homeDirectory;
+  home.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+  };
 
   home.activation = {
     # during first setup clone shell
@@ -100,8 +103,8 @@ in
       st = "status";
     };
     extraConfig = {
-      commit.gpgsign = true;            
-      tag.gpgSign = true;               
+      commit.gpgsign = true;
+      tag.gpgSign = true;
     };
     signing = {
       key = null;
@@ -119,6 +122,7 @@ in
       };
     };
   };
+  programs.kitty.enable = true;
 
   services = {
     gnome-keyring.enable = true;
@@ -130,6 +134,11 @@ in
       enableZshIntegration = true;
     };
   };
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+  };
+  wayland.windowManager.hyprland.systemd.enable = false;
 
   # same as https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "24.11";

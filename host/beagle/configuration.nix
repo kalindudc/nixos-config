@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 let
   screen = {
@@ -37,6 +37,17 @@ in
     shell = pkgs.zsh;
   };
 
+  # https://wiki.hyprland.org/Nix/Hyprland-on-NixOS/
+  programs.hyprland = {
+    enable = true;
+
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+
+    xwayland.enable = true;
+    withUWSM = true;
+  };
+  programs.hyprlock.enable = true;
   programs.firefox.enable = true;
   programs.gnupg.agent = {
     enable = true;
@@ -45,10 +56,12 @@ in
 
   environment.systemPackages = with pkgs; [
     git
-    vim
+    kitty
     neovim
+    vim
     vscode
     wget
+
     (
       sddm-astronaut.override {
         themeConfig = {
