@@ -46,6 +46,16 @@ in
     shell = pkgs.zsh;
   };
 
+  programs.uwsm = {
+    enable = true;
+    waylandCompositors = {
+      hyprland = {
+        prettyName = "Hyprland";
+        comment = "Hyprland compositor managed by UWSM";
+        binPath = "/run/current-system/sw/bin/Hyprland";
+      };
+    };
+  };
   # https://wiki.hyprland.org/Nix/Hyprland-on-NixOS/
   programs.hyprland = {
     enable = true;
@@ -62,22 +72,45 @@ in
     enable = true;
     enableSSHSupport = true;
   };
+  programs.xwayland.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    wlr.enable = false;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    configPackages = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal
+    ];
+  };
 
   environment.systemPackages = with pkgs; [
     cmake
     cpio
+    ffmpeg
     git
+    glib
+    gsettings-qt
+    kdePackages.qt6ct
+    kdePackages.qtwayland
+    kdePackages.qtstyleplugin-kvantum
+    killall
     kitty
+    libappindicator
+    libnotify
+    libsForQt5.qt5ct
     meson
     neovim
+    openssl
     pkg-config
-    qt5.qtwayland
-    qt6.qmake
-    qt6.qtwayland
     vim
     vscode
-    wayland-logout
+    wlogout
     wget
+    xdg-user-dirs
+    xdg-utils
 
     (
       sddm-astronaut.override {
@@ -92,6 +125,17 @@ in
         };
       }
     )
+  ];
+
+  fonts.packages = with pkgs; [
+    noto-fonts
+    fira-code
+    noto-fonts-cjk-sans
+    jetbrains-mono
+    font-awesome
+	  terminus_font
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
   ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
