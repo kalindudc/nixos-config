@@ -16,6 +16,8 @@ in
   # Set your time zone.
   time.timeZone = "America/Toronto";
 
+  services.xserver.videoDrivers = [ "amdgpu" "modesetting" "fbdev" ];
+
   services.displayManager.sddm = {
     enable = true;
     theme = "sddm-astronaut-theme";
@@ -28,6 +30,13 @@ in
   # Enable the KDE Plasma Desktop Environment, for now...
   services.desktopManager.plasma6.enable = true;
   services.gnome.gnome-keyring.enable = true;
+
+  hardware.graphics = {
+    extraPackages = with pkgs; [
+      libva
+      libva-utils
+    ];
+  };
 
   users.users.kalindu = {
     isNormalUser = true;
@@ -55,11 +64,19 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    cmake
+    cpio
     git
     kitty
+    meson
     neovim
+    pkg-config
+    qt5.qtwayland
+    qt6.qmake
+    qt6.qtwayland
     vim
     vscode
+    wayland-logout
     wget
 
     (
