@@ -13,7 +13,7 @@
   };
 
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.plymouth.enable = true;
+  boot.plymouth.enable = false;
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -25,7 +25,7 @@
   i18n.defaultLocale = "en_CA.UTF-8";
 
   # Enable the X11 windowing system.
-  services.xserver.enable = false;
+  services.xserver.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
