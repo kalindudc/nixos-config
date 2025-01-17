@@ -4,6 +4,7 @@
   # Bootloader.
 
   boot.loader.systemd-boot.enable = false;
+  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.grub = {
     enable = true;
     device = "nodev";
@@ -12,6 +13,7 @@
   };
 
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.plymouth.enable = true;
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -48,8 +50,9 @@
 
   # services.xserver.libinput.enable = true;
 
-  # Install firefox.
   programs.firefox.enable = true;
+  programs.dconf.enable = true;
+  programs.yazi.enable = true;
 
   # Allow unfree packages.
   nixpkgs.config.allowUnfree = true;
@@ -70,12 +73,13 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # garbage collection and boot loader menu
-  boot.loader.systemd-boot.configurationLimit = 10;
   nix.gc = {
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than +10";
   };
+
+  virtualisation.docker.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   # tl;dr: just don't change it

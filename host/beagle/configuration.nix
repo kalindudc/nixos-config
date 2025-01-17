@@ -69,12 +69,15 @@ in
     xwayland.enable = true;
     withUWSM = true;
   };
+
   programs.hyprlock.enable = true;
   programs.firefox.enable = true;
+
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
   };
+
   programs.xwayland.enable = true;
 
   xdg.portal = {
@@ -90,36 +93,72 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    ansible
+    bc
+    btop
     cmake
     cpio
+    dnsutils
+    ethtool
+    fastfetch
+    file
     ffmpeg
+    fzf
+    gawk
+    gcc
     git
     glib
+    gnupg
+    gnused
+    gnutar
+    go
     gsettings-qt
+    ipcalc
+    jq
+    hyprpicker
+    hyprlock
+    kdePackages.dolphin
     kdePackages.qt6ct
     kdePackages.qtwayland
     kdePackages.qtstyleplugin-kvantum
     killall
     kitty
+    ldns
     libappindicator
     libnotify
     libsForQt5.qt5ct
+    lshw
+    lsof
     meson
+    mtr
+    nix-output-monitor
     neovim
     openssl
     parted
+    pciutils
     pkg-config
+    rustup
+    stow
+    tree
+    unzip
+    usbutils
     vim
     vscode
+    waypaper
+    which
     wlogout
     wget
     xdg-user-dirs
     xdg-utils
+    xz
+    yq-go
+    zip
+    zstd
 
     (
       sddm-astronaut.override {
         themeConfig = {
-          Background = "${../../theme/wallpaper/lock_screen_wallpaper.jpg}";
+          Background = "${../../config/assets/wallpaper/lock_screen_wallpaper.jpg}";
           FormPosition = "left";
           ScreenWidth = "${screen.width}";
           ScreenHeight = "${screen.height}";

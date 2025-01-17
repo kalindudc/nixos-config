@@ -40,45 +40,20 @@ in
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-    bc
-    btop
     delta
-    dnsutils
-    ethtool
-    fastfetch
-    file
-    fzf
-    gawk
-    git
     gitleaks
     gh
-    gnupg
-    gnused
-    gnutar
-    ipcalc
-    jq
     kubectl
-    ldns
-    lsof
-    mtr
-    nix-output-monitor
+    nodePackages_latest.pnpm
+    nodePackages_latest.yarn
+    nodePackages_latest.nodejs
     nmap
     nnn
     obsidian
-    pciutils
     pyenv
     ripgrep
     ruby
-    stow
-    tree
-    unzip
-    usbutils
-    which
-    xz
-    yq-go
-    zip
     zsh
-    zstd
   ];
 
   programs.pyenv = {

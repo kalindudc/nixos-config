@@ -11,15 +11,24 @@
     ghostty = {
       url = "github:ghostty-org/ghostty";
     };
+    stylix.url = "github:danth/stylix";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ghostty, ...}: {
+  outputs = inputs@{
+    self,
+    nixpkgs,
+    home-manager,
+    ghostty,
+    stylix,
+    ...
+  }: {
     nixosConfigurations.beagle = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules = [
         ./host/base/configuration.nix
         ./host/beagle/configuration.nix
+        stylix.nixosModules.stylix ./host/beagle/stylix.nix
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
