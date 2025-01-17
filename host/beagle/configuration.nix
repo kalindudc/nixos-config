@@ -143,6 +143,7 @@ in
     wl-clipboard
     waypaper
     wlogout
+    yad
 
     (
       sddm-astronaut.override {

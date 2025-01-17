@@ -11,6 +11,11 @@ let
   };
 in
 {
+  imports = [
+    ../../config/rofi.nix
+    ../../config/wlogout.nix
+  ];
+
   home.username = userData.username;
   home.homeDirectory = userData.homeDirectory;
   home.sessionVariables = {
@@ -38,6 +43,11 @@ in
     '';
   };
 
+  home.file = {
+    # wlogout icons
+    ".config/wlogout/icon".source = "${../../config/assets/wlogout}";
+  };
+
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     delta
@@ -47,8 +57,6 @@ in
     nodePackages_latest.pnpm
     nodePackages_latest.yarn
     nodePackages_latest.nodejs
-    nmap
-    nnn
     obsidian
     pyenv
     ripgrep
@@ -60,10 +68,12 @@ in
     enable = true;
     enableZshIntegration = true;
   };
+
   programs.rbenv = {
     enable = true;
     enableZshIntegration = true;
   };
+
   programs.gpg.enable = true;
 
   # basic configuration of git, please change to your own
@@ -98,26 +108,54 @@ in
     };
   };
 
-  programs.wlogout = {
+  services.gnome-keyring.enable = true;
+
+  services.gpg-agent = {
     enable = true;
-    layout = [
-      {
-        label = "logout";
-        action = "sleep 1; hyprctl dispatch exit 0";
-        text = "Logout";
-        keybind = "e";
-      }
-    ];
+    defaultCacheTtl = 21600;
+    maxCacheTtl = 43200;
+    enableSshSupport = true;
+    enableZshIntegration = true;
   };
 
-  services = {
-    gnome-keyring.enable = true;
-    gpg-agent = {
-      enable = true;
-      defaultCacheTtl = 21600;
-      maxCacheTtl = 43200;
-      enableSshSupport = true;
-      enableZshIntegration = true;
+  # icons
+  gtk = {
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+  };
+
+  qt = {
+    enable = true;
+    style.name = "adwaita-dark";
+    platformTheme.name = "gtk3";
+  };
+
+  services.hypridle = {
+    settings = {
+      general = {
+        after_sleep_cmd = "hyprctl dispatch dpms on";
+        ignore_dbus_inhibit = false;
+        lock_cmd = "hyprlock";
+      };
+      listener = [
+        {
+          timeout = 900;
+          on-timeout = "hyprlock";
+        }
+        {
+          timeout = 1200;
+          on-timeout = "hyprctl dispatch dpms off";
+          on-resume = "hyprctl dispatch dpms on";
+        }
+      ];
     };
   };
 

@@ -46,6 +46,7 @@
           };
           home-manager.sharedModules = [{
             stylix.targets.gtk.enable = false;
+            stylix.targets.waybar.enable = false;
           }];
           home-manager.users.kalindu = import ./host/beagle/home.nix;
         }

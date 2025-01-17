@@ -104,6 +104,8 @@
     mtr
     nix-output-monitor
     neovim
+    nmap
+    nnn
     openssl
     parted
     pciutils
