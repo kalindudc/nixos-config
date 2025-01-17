@@ -22,6 +22,5 @@
         popups = 11;
       };
     };
-    targets.grub.enable = false;
   };
 }

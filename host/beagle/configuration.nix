@@ -27,8 +27,6 @@ in
     };
   };
 
-  services.blueman.enable = true;
-
   # Enable the KDE Plasma Desktop Environment, for now...
   services.desktopManager.plasma6.enable = true;
   services.gnome.gnome-keyring.enable = true;
@@ -72,6 +70,7 @@ in
       "networkmanager"
       "wheel"
       "docker"
+      "video"
     ];
     packages = with pkgs; [ ];
     shell = pkgs.zsh;
