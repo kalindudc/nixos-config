@@ -10,6 +10,8 @@
     device = "nodev";
     efiSupport = true;
     useOSProber = true;
+    theme = pkgs.catppuccin-grub;
+    fontSize = 18;
   };
 
   boot.loader.efi.canTouchEfiVariables = true;
