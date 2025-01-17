@@ -5,6 +5,7 @@ let
     username = "kalindu";
     homeDirectory = "/home/kalindu";
 
+    # all the dotfiles
     shellDir = "src/github.com/kalindudc/shell";
     shellRepo = "https://github.com/kalindudc/shell.git";
   };
@@ -16,8 +17,8 @@ in
     NIXOS_OZONE_WL = "1";
   };
 
+  # clone and setup dotfiles
   home.activation = {
-    # during first setup clone shell
     cloneShellRepo = lib.hm.dag.entryAfter [ "writeBoundary" "installPackages" "git" ] ''
       export PATH="${lib.makeBinPath (with pkgs; [ git ])}:$PATH"
 
@@ -51,7 +52,6 @@ in
     git
     gitleaks
     gh
-    ghostty
     gnupg
     gnused
     gnutar
@@ -121,6 +121,18 @@ in
 	      hunk-header-decoration-style = "cyan box ul";
       };
     };
+  };
+
+  programs.wlogout = {
+    enable = true;
+    layout = [
+      {
+        label = "logout";
+        action = "sleep 1; hyprctl dispatch exit 0";
+        text = "Logout";
+        keybind = "e";
+      }
+    ];
   };
 
   services = {

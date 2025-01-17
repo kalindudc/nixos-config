@@ -11,6 +11,13 @@ in
     ./hardware-configuration.nix
   ];
 
+  # boot.loader.grub = {
+  #   enable = true;
+  #   device = "/dev/disk/by-id/eui.e8238fa6bf530001001b448b4c041047-part1";
+  #   efiSupport = true;
+  #   useOSProber = true;
+  # };
+
   networking.hostName = "beagle";
 
   # Set your time zone.
@@ -41,7 +48,11 @@ in
   users.users.kalindu = {
     isNormalUser = true;
     description = "Kalindu De Costa";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
     packages = with pkgs; [ ];
     shell = pkgs.zsh;
   };
@@ -103,6 +114,7 @@ in
     meson
     neovim
     openssl
+    parted
     pkg-config
     vim
     vscode

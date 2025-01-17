@@ -8,9 +8,12 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ...}: {
+  outputs = inputs@{ self, nixpkgs, home-manager, ghostty, ...}: {
     nixosConfigurations.beagle = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
