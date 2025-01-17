@@ -21,10 +21,17 @@
     ghostty,
     stylix,
     ...
-  }: {
+  }:
+  let
+    homeManagerBackupExtension = "hm-backup";
+  in
+  {
     nixosConfigurations.beagle = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
+      specialArgs = {
+        inherit inputs;
+        inherit homeManagerBackupExtension;
+      };
       modules = [
         ./host/base/configuration.nix
         ./host/beagle/configuration.nix
@@ -32,7 +39,14 @@
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.backupFileExtension = "rebuild";
+          home-manager.backupFileExtension = "${homeManagerBackupExtension}";
+          home-manager.extraSpecialArgs = {
+            inherit inputs;
+            inherit homeManagerBackupExtension;
+          };
+          home-manager.sharedModules = [{
+            stylix.targets.gtk.enable = false;
+          }];
           home-manager.users.kalindu = import ./host/beagle/home.nix;
         }
       ];

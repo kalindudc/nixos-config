@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, homeManagerBackupExtension, ... }:
 
 let
   userData = {
@@ -17,8 +17,8 @@ in
     NIXOS_OZONE_WL = "1";
   };
 
-  # clone and setup dotfiles
   home.activation = {
+    # clone and setup dotfiles
     cloneShellRepo = lib.hm.dag.entryAfter [ "writeBoundary" "installPackages" "git" ] ''
       export PATH="${lib.makeBinPath (with pkgs; [ git ])}:$PATH"
 

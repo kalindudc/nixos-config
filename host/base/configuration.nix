@@ -62,13 +62,74 @@
 
   # Default packages.
   environment.systemPackages = with pkgs; [
+    bc
+    btop
+    cmake
+    curl
+    cpio
+    dnsutils
+    ethtool
+    fastfetch
+    file
+    ffmpeg
+    fzf
+    gawk
+    gcc
     git
-    vim
+    glib
+    gnupg
+    gnused
+    gnutar
+    git
+    go
+    gsettings-qt
+    ipcalc
+    jq
+    killall
+    ldns
+    libappindicator
+    libnotify
+    lshw
+    lsof
+    meson
+    mtr
+    nix-output-monitor
     neovim
+    openssl
+    parted
+    pciutils
+    pkg-config
+    rustup
+    stow
+    tree
+    unzip
+    usbutils
+    vim
     vscode
     wget
+    which
+    xdg-user-dirs
+    xdg-utils
+    xz
+    yq-go
+    zip
+    zstd
     zsh
   ];
+
+  fonts.packages = with pkgs; [
+    noto-fonts
+    fira-code
+    noto-fonts-cjk-sans
+    jetbrains-mono
+    font-awesome
+	  terminus_font
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
+    montserrat
+  ];
+
+  virtualisation.docker.enable = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -78,8 +139,6 @@
     dates = "weekly";
     options = "--delete-older-than +10";
   };
-
-  virtualisation.docker.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   # tl;dr: just don't change it

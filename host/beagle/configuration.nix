@@ -83,77 +83,23 @@ in
   xdg.portal = {
     enable = true;
     wlr.enable = false;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-    ];
     configPackages = [
-      pkgs.xdg-desktop-portal-gtk
       pkgs.xdg-desktop-portal
     ];
   };
 
   environment.systemPackages = with pkgs; [
     ansible
-    bc
-    btop
-    cmake
-    cpio
-    dnsutils
-    ethtool
-    fastfetch
-    file
-    ffmpeg
-    fzf
-    gawk
-    gcc
-    git
-    glib
-    gnupg
-    gnused
-    gnutar
-    go
-    gsettings-qt
-    ipcalc
-    jq
     hyprpicker
     hyprlock
     kdePackages.dolphin
     kdePackages.qt6ct
     kdePackages.qtwayland
     kdePackages.qtstyleplugin-kvantum
-    killall
     kitty
-    ldns
-    libappindicator
-    libnotify
     libsForQt5.qt5ct
-    lshw
-    lsof
-    meson
-    mtr
-    nix-output-monitor
-    neovim
-    openssl
-    parted
-    pciutils
-    pkg-config
-    rustup
-    stow
-    tree
-    unzip
-    usbutils
-    vim
-    vscode
     waypaper
-    which
     wlogout
-    wget
-    xdg-user-dirs
-    xdg-utils
-    xz
-    yq-go
-    zip
-    zstd
 
     (
       sddm-astronaut.override {
@@ -168,17 +114,6 @@ in
         };
       }
     )
-  ];
-
-  fonts.packages = with pkgs; [
-    noto-fonts
-    fira-code
-    noto-fonts-cjk-sans
-    jetbrains-mono
-    font-awesome
-	  terminus_font
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.fira-code
   ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
