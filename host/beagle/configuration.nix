@@ -11,14 +11,6 @@ in
     ./hardware-configuration.nix
   ];
 
-  boot.loader.systemd-boot.enable = false;
-  boot.loader.grub = {
-    enable = true;
-    device = "nodev";
-    efiSupport = true;
-    useOSProber = true;
-  };
-
   networking.hostName = "beagle";
 
   # Set your time zone.
