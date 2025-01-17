@@ -25,7 +25,7 @@
   i18n.defaultLocale = "en_CA.UTF-8";
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services.xserver.enable = false;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -33,12 +33,20 @@
     variant = "";
   };
 
-  # Enable CUPS to print documents.
+  services.cron.enable = true;
+
+  services.logind = {
+    extraConfig = ''
+      HandlePowerKey=suspend
+    '';
+  };
+
   services.printing.enable = true;
+  services.libinput.enable = true;
+  services.fstrim.enable = true;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -89,6 +97,7 @@
     ldns
     libappindicator
     libnotify
+    libvirt
     lshw
     lsof
     meson
@@ -119,17 +128,28 @@
 
   fonts.packages = with pkgs; [
     noto-fonts
-    fira-code
+    noto-fonts-emoji
     noto-fonts-cjk-sans
+    fira-code
     jetbrains-mono
     font-awesome
 	  terminus_font
     nerd-fonts.jetbrains-mono
     nerd-fonts.fira-code
     montserrat
+    roboto
+    material-icons
   ];
 
   virtualisation.docker.enable = true;
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
+  security.rtkit.enable = true;
+  security.polkit.enable = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -139,6 +159,8 @@
     dates = "weekly";
     options = "--delete-older-than +10";
   };
+
+  nix.settings.auto-optimise-store = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   # tl;dr: just don't change it
