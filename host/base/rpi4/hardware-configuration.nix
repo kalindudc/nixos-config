@@ -4,7 +4,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
 
   fileSystems = {
