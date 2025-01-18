@@ -9,10 +9,8 @@ in {
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 5;
-  boot.loader = {
-    grub.enable = false;
-    generic-extlinux-compatible.enable = true;
-  };
+  boot.loader.grub.enable = false;
+  boot.loader.generic-extlinux-compatible.enable = false;
 
   networking.networkmanager.enable = true;
 
