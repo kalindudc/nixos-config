@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ 
-    ../base/home.nix
+  imports = [
+    ../base/desktop/home.nix
   ];
 }

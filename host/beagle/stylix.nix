@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../base/stylix.nix
+    ../base/desktop/stylix.nix
   ];
 
   # individual stylix config for beagle

@@ -33,7 +33,7 @@
         inherit homeManagerBackupExtension;
       };
       modules = [
-        ./host/base/configuration.nix
+        ./host/base/desktop/configuration.nix
         ./host/beagle/configuration.nix
         stylix.nixosModules.stylix ./host/beagle/stylix.nix
         home-manager.nixosModules.home-manager {
@@ -50,6 +50,14 @@
           }];
           home-manager.users.kalindu = import ./host/beagle/home.nix;
         }
+      ];
+    };
+
+    nixosConfigurations.dns2 = nixpkgs.lib.nixosSystem {
+      system = "aarch64-linux";
+      modules = [
+        ./host/base/rpi4/configuration.nix
+        ./host/dns2/configuration.nix
       ];
     };
   };
