@@ -12,7 +12,7 @@ let
 in
 {
   imports = [
-    ../../../config/rofi.nix
+    ../../../config/rofi/rofi.nix
     ../../../config/wlogout.nix
   ];
 
@@ -44,8 +44,14 @@ in
   };
 
   home.file = {
+    # wallpaper
+    ".config/wallpaper".source = "${../../../config/assets/wallpaper}";
+
     # wlogout icons
     ".config/wlogout/icon".source = "${../../../config/assets/wlogout}";
+
+    # hyprland
+    ".config/hypr".source = "${../../../config/hypr}";
   };
 
   # Packages that should be installed to the user profile.
@@ -122,6 +128,7 @@ in
     };
   };
 
+  # idle suspend and lock settings
   services.hypridle = {
     settings = {
       general = {
@@ -131,11 +138,11 @@ in
       };
       listener = [
         {
-          timeout = 900;
+          timeout = 600;
           on-timeout = "hyprlock";
         }
         {
-          timeout = 1200;
+          timeout = 900;
           on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";
         }

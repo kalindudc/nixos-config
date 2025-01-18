@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   boot.loader.systemd-boot.enable = false;
@@ -90,6 +90,7 @@
     go
     go-task
     gsettings-qt
+    inputs.ghostty.packages.${pkgs.system}.default
     ipcalc
     jq
     killall

@@ -120,6 +120,7 @@ in
 
   environment.systemPackages = with pkgs; [
     ansible
+    cliphist
     dunst
     grim
     hypridle
@@ -133,6 +134,7 @@ in
     kitty
     networkmanagerapplet
     libsForQt5.qt5ct
+    rofi-power-menu
     slurp
     spotify
     swaynotificationcenter
