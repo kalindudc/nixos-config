@@ -1,14 +1,6 @@
 { config, pkgs, lib, ... }:
 
-let
-  user = "guest";
-  password = "guest";
-  SSID = "mywifi";
-  SSIDpassword = "mypassword";
-  interface = "wlan0";
-  hostname = "myhostname";
-in {
-
+{
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
     initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
@@ -26,29 +18,14 @@ in {
     };
   };
 
-  networking = {
-    hostName = hostname;
-    wireless = {
-      enable = true;
-      networks."${SSID}".psk = SSIDpassword;
-      interfaces = [ interface ];
-    };
-  };
+  networking.hostName = "rpi4";
+  environment.systemPackages = with pkgs; [ vim git curl ];
 
-  environment.systemPackages = with pkgs; [ vim ];
-
-  services.openssh.enable = true;
-
-  users = {
-    mutableUsers = false;
-    users."${user}" = {
-      isNormalUser = true;
-      password = password;
-      extraGroups = [ "wheel" ];
-    };
-  };
+  services.openssh.enable = false;
 
   hardware.enableRedistributableFirmware = true;
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # currently using 24.11 sd image
   system.stateVersion = "24.11";

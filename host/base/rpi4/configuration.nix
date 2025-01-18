@@ -43,7 +43,7 @@ in {
   services.openssh.enable = true;
 
   users = {
-    mutableUsers = false;
+    mutableUsers = true;
     users."${user}" = {
       isNormalUser = true;
       extraGroups = [
@@ -58,6 +58,12 @@ in {
   };
 
   virtualisation.docker.enable = true;
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than +10";
+  };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
