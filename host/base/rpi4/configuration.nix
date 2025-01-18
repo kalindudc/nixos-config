@@ -7,11 +7,16 @@ in {
     ./hardware-configuration.nix
   ];
 
-  boot.loader.grub.enable = false;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.efiSupport = true;
+  boot.loader.grub.efiInstallAsRemovable = true;
+  boot.loader.grub.device = "nodev";
+
   boot.loader.generic-extlinux-compatible.enable = false;
 
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable = false;
   boot.loader.systemd-boot.configurationLimit = 5;
+
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.networkmanager.enable = true;
