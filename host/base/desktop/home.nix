@@ -12,8 +12,8 @@ let
 in
 {
   imports = [
-    ../../config/rofi.nix
-    ../../config/wlogout.nix
+    ../../../config/rofi.nix
+    ../../../config/wlogout.nix
   ];
 
   home.username = userData.username;
@@ -45,7 +45,7 @@ in
 
   home.file = {
     # wlogout icons
-    ".config/wlogout/icon".source = "${../../config/assets/wlogout}";
+    ".config/wlogout/icon".source = "${../../../config/assets/wlogout}";
   };
 
   # Packages that should be installed to the user profile.
