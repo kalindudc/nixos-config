@@ -22,7 +22,7 @@ echo " "
 
 echo "Pulling default configuration..."
 echo " "
-sudo curl -fsSL https://raw.githubusercontent.com/kalindudc/nixos-config/main/host/base/rpi4/init.nix -o /etc/nixos/configuration.nix
+sudo curl -fSL --progress-bar https://raw.githubusercontent.com/kalindudc/nixos-config/main/host/base/rpi4/init.nix -o /etc/nixos/configuration.nix
 echo " "
 echo "Default configuration pulled successfully!"
 
@@ -38,7 +38,7 @@ git clone https://github.com/kalindudc/nixos-config.git
 
 # get device host from user input
 read -p "Enter the device host: " device_host
-sudo nixos-rebuild switch --flake "nixos-config#$device_host"
+nixos-rebuild switch --use-remote-sudo --flake "./nixos-config#$device_host"
 
 echo " "
-echo "Setup complete!"
+echo "Setup complete! Remember to set a password for your user."
