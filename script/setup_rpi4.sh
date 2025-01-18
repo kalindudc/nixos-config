@@ -16,31 +16,64 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
+usage() {
+  echo "Usage: $0 [-f|--skip-firmware] [-c|--skip-default-config] [-h|--help]"
+  exit 1
+}
+
+skip_firmware=false
+skip_upgrade=false
+
+# Parse options
+while [[ "$#" -gt 0 ]]; do
+  case $1 in
+    -h|--help)
+      usage
+      ;;
+    -f|--skip-firmware)
+      skip_firmware=true
+      ;;
+    -c|--skip-default-config)
+      skip_upgrade=true
+      ;;
+    *)
+      echo "Unknown option: $1"
+      usage
+      ;;
+  esac
+  shift
+done
+
+
 echo "${GREEN}Setting up Raspberry Pi 4 with NixOS${NC}"
 echo "${GREEN}=====================================${NC}"
 echo ""
 
-echo "${GREEN}Updating the firmware...${NC}"
-echo " "
-nix-shell -p raspberrypi-eeprom --run '
-mount /dev/disk/by-label/FIRMWARE /mnt
-BOOTFS=/mnt FIRMWARE_RELEASE_STATUS=stable rpi-eeprom-update -d -a
-'
-echo " "
-echo "${GREEN}Firmware updated successfully!${NC}"
-echo " "
+if [ "$skip_firmware" = false ]; then
+  echo "${GREEN}Updating the firmware...${NC}"
+  echo " "
+  nix-shell -p raspberrypi-eeprom --run '
+  mount /dev/disk/by-label/FIRMWARE /mnt
+  BOOTFS=/mnt FIRMWARE_RELEASE_STATUS=stable rpi-eeprom-update -d -a
+  '
+  echo " "
+  echo "${GREEN}Firmware updated successfully!${NC}"
+  echo " "
+fi
 
-echo "${GREEN}Pulling default configuration...${NC}"
-echo " "
-curl -fSL --progress-bar https://raw.githubusercontent.com/kalindudc/nixos-config/main/host/base/rpi4/init.nix -o /etc/nixos/configuration.nix
-echo "${GREEN}Default configuration pulled successfully!${NC}"
-echo " "
+if [ "$skip_upgrade" = false ]; then
+  echo "${GREEN}Pulling default configuration...${NC}"
+  echo " "
+  curl -fSL --progress-bar https://raw.githubusercontent.com/kalindudc/nixos-config/main/host/base/rpi4/init.nix -o /etc/nixos/configuration.nix
+  echo "${GREEN}Default configuration pulled successfully!${NC}"
+  echo " "
 
-echo "${GREEN}Rebuilding the system...${NC}"
-echo " "
-nixos-rebuild switch --upgrade
-echo "${GREEN}System rebuilt successfully!${NC}"
-echo " "
+  echo "${GREEN}Rebuilding the system and upgrading...${NC}"
+  echo " "
+  nixos-rebuild switch --upgrade
+  echo "${GREEN}System rebuilt successfully!${NC}"
+  echo " "
+fi
 
 echo "${GREEN}Setting up nixos-config...${NC}"
 echo " "
@@ -54,6 +87,12 @@ echo " "
 nixos-install switch --flake "./nixos-config#$device_host"
 
 echo " "
-echo "${GREEN}Setup complete! Remember to set a password for your user and the root.${NC}"
-echo "  > passwd root"
-echo "  > passwd <your-username>"
+echo "${GREEN}Set root password!${NC}"
+passwd root
+
+echo " "
+echo "${GREEN}Set root password!${NC}"
+passwd administrator
+
+echo " "
+echo "${GREEN}Setup complete!"
