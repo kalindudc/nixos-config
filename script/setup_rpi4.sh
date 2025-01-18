@@ -21,5 +21,3 @@ git clone https://github.com/kalindudc/nixos-config.git
 read -p "Enter the device host: " device_host
 
 nixos-rebuild switch --flake "nixos-config#$device_host"
-
-
