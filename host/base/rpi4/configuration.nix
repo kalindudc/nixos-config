@@ -25,6 +25,11 @@ in {
     ethtool
     fastfetch
     ffmpeg
+    glib
+    gnumake
+    gnupg
+    gnused
+    gnutar
     go
     ldns
     nmap

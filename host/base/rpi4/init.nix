@@ -1,3 +1,6 @@
+# This is an initial configuration for SD images and will be used
+# just to upgrade and enable flakes
+
 { config, pkgs, lib, ... }:
 
 {

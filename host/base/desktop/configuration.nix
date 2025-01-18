@@ -1,10 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  # Bootloader.
-
   boot.loader.systemd-boot.enable = false;
-  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.grub = {
     enable = true;
     device = "nodev";
@@ -72,6 +69,7 @@
   environment.systemPackages = with pkgs; [
     bc
     btop
+    bzip2
     cmake
     curl
     cpio
@@ -83,25 +81,28 @@
     fzf
     gawk
     gcc
-    git
     glib
+    gnumake
     gnupg
     gnused
     gnutar
     git
     go
+    go-task
     gsettings-qt
     ipcalc
     jq
     killall
     ldns
     libappindicator
+    libffi
     libnotify
     libvirt
     lshw
     lsof
     meson
     mtr
+    ncurses
     nix-output-monitor
     neovim
     nmap
@@ -110,6 +111,8 @@
     parted
     pciutils
     pkg-config
+    python3
+    readline
     rustup
     stow
     tree
@@ -124,6 +127,7 @@
     xz
     yq-go
     zip
+    zlib
     zstd
     zsh
   ];

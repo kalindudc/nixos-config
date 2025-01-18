@@ -51,6 +51,7 @@ in
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     delta
+    ejson
     gitleaks
     gh
     kubectl
@@ -58,21 +59,10 @@ in
     nodePackages_latest.yarn
     nodePackages_latest.nodejs
     obsidian
-    pyenv
     ripgrep
     ruby
     zsh
   ];
-
-  programs.pyenv = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.rbenv = {
-    enable = true;
-    enableZshIntegration = true;
-  };
 
   programs.gpg.enable = true;
 
