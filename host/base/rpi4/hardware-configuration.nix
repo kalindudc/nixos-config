@@ -1,6 +1,10 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, modulesPath, ... }:
 {
-  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_rpi4;
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
+
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
   boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
 
   fileSystems = {
@@ -12,5 +16,8 @@
   };
   swapDevices = [ { device = "/swapfile"; size = 4096; } ];
 
+  networking.useDHCP = lib.mkDefault true;
+
   hardware.enableRedistributableFirmware = true;
+  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }
