@@ -47,6 +47,9 @@ in
     # wallpaper
     ".config/wallpaper".source = "${../../../config/assets/wallpaper}";
 
+    # profile picture
+    ".config/profile/profile.jpg".source = "${../../../config/assets/profile.jpg}";
+
     # wlogout icons
     ".config/wlogout/icon".source = "${../../../config/assets/wlogout}";
 

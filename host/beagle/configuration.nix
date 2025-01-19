@@ -121,6 +121,7 @@ in
   environment.systemPackages = with pkgs; [
     ansible
     cliphist
+    direnv
     dunst
     grim
     hypridle
@@ -133,10 +134,12 @@ in
     kdePackages.qtstyleplugin-kvantum
     kitty
     networkmanagerapplet
+    playerctl
     libsForQt5.qt5ct
     rofi-power-menu
     slurp
     spotify
+    sshpass
     swaynotificationcenter
     waybar
     wl-clipboard
