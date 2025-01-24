@@ -141,12 +141,10 @@
     jetbrains-mono
     font-awesome
 	  terminus_font
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.fira-code
     montserrat
     roboto
     material-icons
-  ];
+  ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
   virtualisation.docker.enable = true;
 

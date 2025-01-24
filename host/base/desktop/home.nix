@@ -70,6 +70,7 @@ in
     obsidian
     ripgrep
     ruby
+    starship
     zsh
   ];
 
