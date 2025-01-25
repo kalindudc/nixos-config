@@ -55,6 +55,9 @@ in
 
     # hyprland
     ".config/hypr".source = "${../../../config/hypr}";
+
+    # waybar
+    ".config/waybar".source = "${../../../config/waybar}";
   };
 
   # Packages that should be installed to the user profile.
