@@ -58,6 +58,9 @@ in
 
     # waybar
     ".config/waybar".source = "${../../../config/waybar}";
+
+    # application flags
+    ".config/code-flags.conf".source = "${../../../config/code-flags.conf}";
   };
 
   # Packages that should be installed to the user profile.

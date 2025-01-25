@@ -16,10 +16,10 @@
         name = "Montserrat";
       };
       sizes = {
-        applications = 10;
-        terminal = 12;
-        desktop = 9;
-        popups = 10;
+        applications = 12;
+        terminal = 13;
+        desktop = 12;
+        popups = 12;
       };
     };
   };

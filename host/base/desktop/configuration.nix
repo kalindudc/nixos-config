@@ -67,7 +67,9 @@
 
   # Default packages.
   environment.systemPackages = with pkgs; [
+    alsa-utils
     bc
+    brightnessctl
     btop
     bzip2
     cmake
