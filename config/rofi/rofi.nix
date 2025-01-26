@@ -10,9 +10,9 @@
       icon-theme = "Papirus";
       font = "JetBrainsMono Nerd Font Mono 12";
       drun-display-format = "{icon} {name}";
-      display-drun = " Apps";
-      display-run = "  Run";
-      display-filebrowser = " File";
+      display-drun = "   Apps";
+      display-run = "   Run";
+      display-filebrowser = "   File";
     };
     theme = ./rofi-theme.rasi;
   };

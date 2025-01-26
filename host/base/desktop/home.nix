@@ -68,6 +68,7 @@ in
     delta
     ejson
     gitleaks
+    gimp
     gh
     kubectl
     nodePackages_latest.pnpm
