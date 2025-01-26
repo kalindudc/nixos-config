@@ -56,11 +56,13 @@ in
     # hyprland
     ".config/hypr".source = "${../../../config/hypr}";
 
-    # waybar
     ".config/waybar".source = "${../../../config/waybar}";
+    ".config/waypaper".source = "${../../../config/waypaper}";
 
     # application flags
     ".config/code-flags.conf".source = "${../../../config/code-flags.conf}";
+
+
   };
 
   # Packages that should be installed to the user profile.

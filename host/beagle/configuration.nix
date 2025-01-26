@@ -128,6 +128,7 @@ in
     hyprlock
     hyprpicker
     hyprshot
+    inputs.swww.packages.${pkgs.system}.swww
     kdePackages.dolphin
     kdePackages.qt6ct
     kdePackages.qtwayland

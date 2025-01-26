@@ -12,6 +12,7 @@
       url = "github:ghostty-org/ghostty";
     };
     stylix.url = "github:danth/stylix";
+    swww.url = "github:LGFae/swww";
   };
 
   outputs = inputs@{
