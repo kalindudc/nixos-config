@@ -11,14 +11,18 @@
 	padding:    0px;
 	spacing:    0px;
 
-  bg0:    #1e2030; /* softer dark background */
-	bg1:    #232635;
-	bg2:    #2a2f45;
-	bg3:    #31374d;
-	fg0:    #a9b1d6; /* softer foreground */
-	fg1:    #b4c2f0;
-	fg2:    #c9d1e6;
-	fg3:    #89a0c9;
+  bg0:    #1b1f2b; /* Deep cool gray-blue for high contrast */
+  bg1:    #212735; /* Slightly lighter cool gray-blue */
+  bg2:    #2c3545; /* Mid-tone muted blue-gray */
+  bg3:    #364150; /* Highlight cool blue-gray */
+  accent0: #8ec07c; /* Complementary green */
+  accent1: #83a598; /* Complementary blue */
+  accent2: #d3869b; /* Complementary magenta */
+  accent3: #fe8019; /* Complementary orange */
+  fg0:    #ebdbb2; /* Original Gruvbox light foreground */
+  fg1:    #fbf1c7; /* Lighter foreground for contrast */
+  fg2:    #d5c4a1; /* Muted foreground */
+  fg3:    #bdae93; /* Dimmed text foreground */
 }
 
 window {
@@ -83,11 +87,11 @@ element {
 }
 
 element normal active {
-  text-color: @fg3;
+  text-color: @accent3;
 }
 
 element alternate active {
-  text-color: @fg3;
+  text-color: @accent2;
 }
 
 element selected normal, element selected active {
@@ -104,5 +108,5 @@ element-text {
 }
 
 element selected {
-  text-color: @bg1;
+  text-color: @accent3;
 }
