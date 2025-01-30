@@ -71,6 +71,7 @@ in
       "wheel"
       "docker"
       "video"
+      "input"
     ];
     packages = with pkgs; [ ];
     shell = pkgs.zsh;
@@ -123,6 +124,7 @@ in
     cliphist
     direnv
     dunst
+    eww
     grim
     hypridle
     hyprlock
@@ -137,12 +139,16 @@ in
     networkmanagerapplet
     playerctl
     libsForQt5.qt5ct
+    rofi-bluetooth
     rofi-power-menu
+    rofi-wayland-unwrapped
     slurp
     spotify
     sshpass
+    sway-audio-idle-inhibit
     swaynotificationcenter
     waybar
+    waybar-mpris
     wl-clipboard
     waypaper
     wlogout
@@ -162,6 +168,7 @@ in
       }
     )
   ];
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # security.pam.services.swaylock.text = "auth include login";
 

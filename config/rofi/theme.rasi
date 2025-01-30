@@ -2,7 +2,7 @@
 /* Author: Newman Sanchez (https://github.com/newmanls) */
 
 * {
-	font:   "Roboto 22";
+	font:   "Roboto 20";
 
 	background-color:   transparent;
 	text-color:         @fg0;
@@ -23,6 +23,13 @@
   fg1:    #fbf1c7; /* Lighter foreground for contrast */
   fg2:    #d5c4a1; /* Muted foreground */
   fg3:    #bdae93; /* Dimmed text foreground */
+
+  main-bg:        #1b1f2b;
+  main-fg:        #ebdbb2;
+  main-br:        #83a598;
+  input-bg:       #212735;
+  select-bg:      #364150;
+  select-fg:      #fe8019;
 }
 
 window {

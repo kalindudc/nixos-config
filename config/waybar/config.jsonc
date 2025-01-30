@@ -1,272 +1,254 @@
 {
-  "font": "JetBrainsMono Nerd Font",
-  "reload_style_on_change": true,
-  "width": 1920, // Waybar width
-  "spacing": 7, // Gaps between modules (4px)
+  "spacing": 4,
   "modules-left": [
-    "group/quicklinks-left",
-    "wlr/taskbar",
-    "network",
-    "hyprland/window",
+    "custom/os_button",
+    "hyprland/workspaces",
+    // "keyboard-state",
+    "cava"
   ],
-  "modules-center": ["hyprland/workspaces"],
+  "modules-center": [
+    "hyprland/window"
+  ],
   "modules-right": [
-    "mpd",
+    "idle_inhibitor",
+    "memory",
+    "cpu",
+    "backlight",
     "pulseaudio",
-    "group/hardware",
-    "custom/keyboard",
+    "network",
+    "battery",
     "clock",
-    "group/quicklinks-right",
+    "custom/power"
   ],
-
-  //Taskbar
-  "wlr/taskbar": {
-    "format": "{icon}",
-    "icon-size": "20",
-    "on-click": "activate",
-    "on-click-right": "close",
-    "tooltip-format": "Go to {title}",
-    "ignore-list": ["kitty", "kitty-scratchpad"],
-  },
-
-  // Hyprland
+  // Modules configuration
   "hyprland/workspaces": {
     "disable-scroll": true,
-    "sort-by": "number",
     "all-outputs": true,
     "warp-on-scroll": false,
     "format": "{icon}",
-    //"format-icons": {
-    //  "1": " ",
-    //  "2": " ",
-    //  "3": " ",
-    //},
+    "format-icons": {
+      "active": "",
+      "focused": "",
+      "default": "",
+      "1": "󰲡",
+      "2": "󰲣",
+      "3": "󰲥",
+      "4": "󰲧",
+      "5": "󰲩",
+      "6": "󰲫",
+      "7": "󰲭",
+      "8": "󰲯",
+      "9": "󰲱"
+    },
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": []
+    },
+    "sorted-by-number": true
+  },
+  "keyboard-state": {
+    "numlock": false,
+    "capslock": true,
+    "format": "{name} {icon} ",
+    "format-icons": {
+      "locked": "",
+      "unlocked": ""
+    },
+    "device-path": "/dev/input/event0"
+  },
+  "cava": {
+    "framerate": 30,
+    "autosens": 1,
+    "bars": 14,
+    "lower_cutoff_freq": 50,
+    "higher_cutoff_freq": 10000,
+    "method": "pipewire",
+    "source": "auto",
+    "stereo": true,
+    "bar_delimiter": 0,
+    "noise_reduction": 0.77,
+    "input_delay": 2,
+    "hide_on_silence": true,
+    "monstercat": true,
+    "waves": true,
+    "format-icons": [
+      "▁",
+      "▂",
+      "▃",
+      "▄",
+      "▅",
+      "▆",
+      "▇",
+      "█"
+    ],
+    "actions": {
+      "on-click-right": "mode"
+    }
+  },
+  "hyprland/submap": {
+    // TODO
   },
   "hyprland/window": {
-    "format": "{title}",
-    "icon": true,
-    "icon-size": 20,
-    "max-length": 30,
-    "separate-outputs": true,
-    "rewrite": {
-      "(.*) - Brave": "$1",
-    },
+    "format": "{title}"
   },
-
-  // Tray
-  "tray": {
-    "icon-size": 21,
-    "spacing": 10,
-  },
-
-  // Quicklinks
-  "group/quicklinks-left": {
-    "orientation": "horizontal",
-    "modules": [
-      "image",
-      "custom/claude",
-      "custom/settings",
-      "custom/clipboard",
-    ],
-  },
-  "image": {
-    "path": "/home/hrigved/Pictures/Icons/arch.png",
-    "on-click": "~/.config/rofi/menus/drun.sh",
-    "size": 18,
-  },
-  "custom/claude": {
-    "format": "  ",
+  "custom/os_button": {
+    "format": "󱄅",
+    "on-click": "rofi -show drun",
     "tooltip": true,
-    "tooltip-format": "Open Claude AI!",
-    "on-click": "brave --app=https://claude.ai",
+    "tooltip-format": "󱄅 Apps Menu"
   },
-  "custom/settings": {
-    "format": " ",
+  "custom/power": {
+    "format": "⏻",
+    "on-click": "wlogout -p xdg -s",
     "tooltip": true,
-    "tooltip-format": "Open Settings!",
-    "on-click": "systemsettings",
-  },
-  "custom/clipboard": {
-    "format": "󱘢 ",
-    "tooltip": true,
-    "tooltip-format": "Open Clipboard Manager!",
-    "on-click": "~/.config/rofi/menus/clipboard.sh",
-  },
-  //"custom/terminal": {
-  //  "format": " ",
-  //  "tooltip": true,
-  //  "tooltip-format": " Open Kitty!",
-  //  "on-click": "kitty",
-  //},
-  //"custom/browser": {
-  //  "format": " ",
-  //  "tooltip": true,
-  //  "tooltip-format": " Open Brave!",
-  //  "on-click": "brave",
-  //},
-  //"custom/explorer": {
-  //  "format": " ",
-  //  "tooltip": true,
-  //  "tooltip-format": " Open Dolphin!",
-  //  "on-click": "dolphin",
-  //},
-
-  "group/quicklinks-right": {
-    "orientation": "horizontal",
-    "modules": [
-      "idle_inhibitor",
-      "custom/wallpaper",
-      "custom/notification",
-      "custom/power-menu",
-    ],
+    "tooltip-format": "⏻ Power Menu"
   },
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
-      "activated": " ",
-      "deactivated": " ",
+      "activated": "",
+      "deactivated": ""
     },
+    "tooltip-format-activated": "Idle Inactive",
+    "tooltip-format-deactivated": "Idle Active"
   },
-  //"group/power-menu": {
-  //  "orientation": "inherit",
-  //  "drawer": {
-  //    "transition-duration": 500,
-  //    "children-class": "power-child",
-  //    "transition-left-to-right": false,
-  //  },
-  //  "modules": [
-  //    "custom/wlogout",
-  //    "custom/reboot",
-  //    "custom/quit",
-  //    "custom/suspend",
-  //    "custom/lock",
-  //  ],
-  //},
-  "custom/power-menu": {
-    "format": " ",
-    "tooltip": true,
-    "tooltip-format": " Open Wlogout!",
-    "on-click": "~/.config/hypr/scripts/power-menu.sh",
-  },
-  //"custom/lock": {
-  //  "format": " ",
-  //  "on-click": "hyprlock",
-  //},
-  //"custom/quit": {
-  //  "format": "󰍃 ",
-  //  "on-click": "hyprctl dispatch exit",
-  //},
-  //"custom/suspend": {
-  //  "format": "⏾ ",
-  //  "on-click": "systemctl suspend",
-  //},
-  //"custom/reboot": {
-  //  "format": " ",
-  //  "on-click": "systemctl reboot",
-  //},
-  "custom/wallpaper": {
-    "format": " ",
-    "tooltip": true,
-    "tooltip-format": " Change Wallpaper!",
-    "on-click": "~/.config/rofi/menus/swww.sh",
-  },
-  "custom/notification": {
-    "tooltip": true,
-    "format": "{icon}",
-    "format-icons": {
-      "notification": "<span foreground='red'><sup></sup></span>",
-      "none": "",
-      "dnd-notification": "<span foreground='red'><sup></sup></span>",
-      "dnd-none": "",
-      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
-      "inhibited-none": "",
-      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
-      "dnd-inhibited-none": "",
+  "clock": {
+    "format": "{:%R}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><big>{calendar}</big></tt>",
+    "format-alt": "{:%Y-%m-%d}",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
     },
-    "return-type": "json",
-    "exec-if": "which swaync-client",
-    "exec": "swaync-client -swb",
-    "on-click": "swaync-client -t -sw",
-    "on-click-right": "swaync-client -d -sw",
-    "escape": true,
-  },
-
-  // Settings
-  "group/settings": {
-    "orientation": "horizontal",
-    "modules": [],
-  },
-
-  // Temperature
-  "temperature": {
-    "critical-threshold": 80,
-    "format": "{temperatureC}°C {icon}",
-    "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0/nvme/nvme0/hwmon1/temp1_input",
-    "format-icons": ["", "", ""],
-  },
-
-  // Current Keyboard Layout
-  "custom/keyboard": {
-    "exec": "~/.config/hypr/scripts/waybar-kb-layout.sh",
-    "on-click": "~/.config/hypr/scripts/change-kb-layout.sh",
-    "return-type": "json",
-    "format-icons": {
-      "colemak_dh": "󰌌 ",
-      "qwerty": "󰌌 ",
-    },
-    "interval": 1,
-    "format": "{} <span font='16' rise='-1800'>{icon}</span>",
-  },
-
-  // Audio setup
-  "pulseaudio": {
-    "format": "{volume}% {icon}",
-    "format-bluetooth": "{volume}% {icon} {format_source}",
-    "format-bluetooth-muted": " {icon} {format_source}",
-    "format-muted": "󰝟 {format_source}",
-    "format-source": "{volume}%",
-    "format-source-muted": "",
-    "format-icons": {
-      "default": ["", " ", " "],
-    },
-    "max-volume": 150,
-    "on-click": "pavucontrol",
-  },
-
-  // Network setup
-  "network": {
-    "format": "{ifname}",
-    "format-wifi": "  {essid} {bandwidthDownBytes}",
-    "format-ethernet": "  {bandwidthDownBytes}",
-    "format-disconnected": "󱍢 No Internet",
-    "tooltip-format": "󰊗 {ifname} via {gwaddr}",
-    "tooltip-format-wifi": "  {essid} ({signalStrength}%)",
-    "tooltip-format-ethernet": "  {ifname}",
-    "max-length": 50,
-    "interval": 2,
-  },
-
-  // Hardware info
-  "group/hardware": {
-    "orientation": "horizontal",
-    "modules": ["cpu", "memory"],
-  },
-  "disk": {
-    "format": "{percentage_used}%  ",
-    "path": "/home",
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "tz_up",
+      "on-scroll-down": "tz_down",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
   },
   "cpu": {
-    "format": " {usage}%  ",
-    "tooltip": false,
+    "format": "{usage}% ",
+    "tooltip": true
   },
   "memory": {
-    "format": " {}%  ",
+    "format": "{}% "
   },
-
-  // Clock
-  "clock": {
-    "format": "󱑂 {:%R %a}", // 19:28 Mon
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format-alt": "󰨳 {:%d %b %Y}", // 25 Dec 2006
+  "temperature": {
+    // "thermal-zone": 2,
+    // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    "critical-threshold": 80,
+    // "format-critical": "{temperatureC}°C {icon}",
+    "format": "{temperatureC}°C {icon}",
+    "format-icons": [
+      "",
+    ]
   },
+  "backlight": {
+    // "device": "acpi_video1",
+    "format": "{percent}% {icon}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "on-scroll-up": "brightnessctl -q s +3%",
+    "on-scroll-down": "brightnessctl -q s 3%-"
+  },
+  "battery": {
+    "states": {
+      // "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}% {icon}",
+    "format-full": "{capacity}% {icon}",
+    "format-charging": "{capacity}% ",
+    "format-plugged": "{capacity}% ",
+    "format-alt": "{time} {icon}",
+    // "format-good": "", // An empty format will hide the module
+    // "format-full": "",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "battery#bat2": {
+    "bat": "BAT2"
+  },
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "",
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
+  },
+  "network": {
+    // "interface": "wlp2*", // (Optional) To force the use of this interface
+    "format-wifi": "{essid} ",
+    "format-ethernet": "󰈀",
+    "tooltip-format": "Connected to {essid}",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "Disconnected ⚠",
+    "tooltip-format-wifi": "{signalStrength}% | {ipaddr}/{cidr}",
+    "tooltip-format-ethernet": "{ipaddr}/{cidr}",
+    "on-click": "sh $HOME/.config/waybar/scripts/rofi_wifi_menu.sh"
+  },
+  "pulseaudio": {
+    // "scroll-step": 1, // %, can be a float
+    "format": "{volume}% {icon}",
+    "format-bluetooth": " {volume}% {icon}",
+    "format-bluetooth-muted": " {volume}% {icon}",
+    "format-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "pavucontrol"
+  },
+  "custom/media": {
+    "format": "{icon} {}",
+    "return-type": "json",
+    "max-length": 40,
+    "format-icons": {
+      "spotify": "",
+      "default": "🎜"
+    },
+    "escape": true,
+    "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+    // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+  }
 }

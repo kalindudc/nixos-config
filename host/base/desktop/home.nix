@@ -53,6 +53,8 @@ in
     # wlogout icons
     ".config/wlogout/icon".source = "${../../../config/assets/wlogout}";
 
+    # ".config/eww".source = "${../../../config/eww}";
+
     # hyprland
     ".config/hypr".source = "${../../../config/hypr}";
 
@@ -129,6 +131,7 @@ in
 
   # icons
   gtk = {
+    enable = true;
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;

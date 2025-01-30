@@ -14,6 +14,6 @@
       display-run = "   Run";
       display-filebrowser = "   File";
     };
-    theme = ./rofi-theme.rasi;
+    theme = ./theme.rasi;
   };
 }

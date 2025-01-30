@@ -76,9 +76,13 @@
   environment.systemPackages = with pkgs; [
     alsa-utils
     bc
+    bluetui
+    bluez
+    bluez-tools
     brightnessctl
     btop
     bzip2
+    cava
     cmake
     curl
     cpio
@@ -99,6 +103,9 @@
     go
     go-task
     gsettings-qt
+    gtk2
+    gtk3
+    gtk4
     inputs.ghostty.packages.${pkgs.system}.default
     ipcalc
     jq
@@ -108,6 +115,7 @@
     libffi
     libnotify
     libvirt
+    lm_sensors
     lsb-release
     lshw
     lsof
@@ -120,9 +128,13 @@
     nnn
     openssl
     parted
+    pavucontrol
     pciutils
     pkg-config
-    python3
+    # python3
+    (python3.withPackages (p: with p; [
+      pygobject3 gst-python
+    ]))
     readline
     rustup
     stow
