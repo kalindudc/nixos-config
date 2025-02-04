@@ -14,6 +14,6 @@
       display-run = "   Run";
       display-filebrowser = "   File";
     };
-    theme = ./theme.rasi;
+    theme = ./themes/theme.rasi;
   };
 }

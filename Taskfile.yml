@@ -1,0 +1,23 @@
+---
+version: "3"
+
+dotenv: [".env"]
+
+tasks:
+
+  rebuild:
+    desc: Rebuild nixos
+    cmds:
+      - nixos-rebuild switch --use-remote-sudo --flake .
+
+  update:
+    desc: Update packages
+    cmds:
+      - nix flake update
+      - task rebuild
+
+  test-sddm:
+    desc: Test current sddm theme
+    cmds:
+      # make this dynamic to pick the current themes or ask for input
+      - sddm-greeter-qt6 --test-mode --theme /run/current-system/sw/share/sddm/themes/sddm-astronaut-theme

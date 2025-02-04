@@ -90,7 +90,8 @@
     // TODO
   },
   "hyprland/window": {
-    "format": "{title}"
+    "format": "{initialTitle}",
+    "separate-outputs": true
   },
   "custom/os_button": {
     "format": "󱄅",
@@ -114,9 +115,9 @@
     "tooltip-format-deactivated": "Idle Active"
   },
   "clock": {
-    "format": "{:%R}",
+    "format": "{:%I:%M %p}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><big>{calendar}</big></tt>",
-    "format-alt": "{:%Y-%m-%d}",
+    "format-alt": "{:%a %b %e}",
     "calendar": {
       "mode": "year",
       "mode-mon-col": 3,
@@ -132,8 +133,6 @@
     },
     "actions": {
       "on-click-right": "mode",
-      "on-scroll-up": "tz_up",
-      "on-scroll-down": "tz_down",
       "on-scroll-up": "shift_up",
       "on-scroll-down": "shift_down"
     }
@@ -143,7 +142,8 @@
     "tooltip": true
   },
   "memory": {
-    "format": "{}% "
+    "format": "{}% ",
+    "tooltip": false
   },
   "temperature": {
     // "thermal-zone": 2,
@@ -157,7 +157,7 @@
   },
   "backlight": {
     // "device": "acpi_video1",
-    "format": "{percent}% {icon}",
+    "format": "{icon}",
     "format-icons": [
       "",
       "",
@@ -170,7 +170,9 @@
       ""
     ],
     "on-scroll-up": "brightnessctl -q s +3%",
-    "on-scroll-down": "brightnessctl -q s 3%-"
+    "on-scroll-down": "brightnessctl -q s 3%-",
+    "tooltip": true,
+    "tooltip-format": "Brightness {percent}%"
   },
   "battery": {
     "states": {
@@ -178,20 +180,20 @@
       "warning": 30,
       "critical": 15
     },
-    "format": "{capacity}% {icon}",
-    "format-full": "{capacity}% {icon}",
-    "format-charging": "{capacity}% ",
-    "format-plugged": "{capacity}% ",
+    "format": "{icon}",
+    "format-full": "{icon}",
+    "format-charging": "󰂄",
+    "format-plugged": "",
     "format-alt": "{time} {icon}",
-    // "format-good": "", // An empty format will hide the module
-    // "format-full": "",
     "format-icons": [
       "",
       "",
       "",
       "",
       ""
-    ]
+    ],
+    "tooltip": true,
+    "tooltip-format": "Battery {capacity}%"
   },
   "battery#bat2": {
     "bat": "BAT2"
@@ -209,20 +211,20 @@
   },
   "network": {
     // "interface": "wlp2*", // (Optional) To force the use of this interface
-    "format-wifi": "{essid} ",
+    "format-wifi": "",
     "format-ethernet": "󰈀",
     "tooltip-format": "Connected to {essid}",
     "format-linked": "{ifname} (No IP) ",
     "format-disconnected": "Disconnected ⚠",
-    "tooltip-format-wifi": "{signalStrength}% | {ipaddr}/{cidr}",
+    "tooltip-format-wifi": "{essid} | {signalStrength}% | {ipaddr}/{cidr}",
     "tooltip-format-ethernet": "{ipaddr}/{cidr}",
     "on-click": "sh $HOME/.config/waybar/scripts/rofi_wifi_menu.sh"
   },
   "pulseaudio": {
     // "scroll-step": 1, // %, can be a float
-    "format": "{volume}% {icon}",
-    "format-bluetooth": " {volume}% {icon}",
-    "format-bluetooth-muted": " {volume}% {icon}",
+    "format": "{icon}",
+    "format-bluetooth": "{icon}",
+    "format-bluetooth-muted": " {icon}",
     "format-muted": "",
     "format-icons": {
       "headphone": "",
@@ -237,18 +239,8 @@
         ""
       ]
     },
-    "on-click": "pavucontrol"
-  },
-  "custom/media": {
-    "format": "{icon} {}",
-    "return-type": "json",
-    "max-length": 40,
-    "format-icons": {
-      "spotify": "",
-      "default": "🎜"
-    },
-    "escape": true,
-    "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-    // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    "on-click": "pavucontrol",
+    "tooltip": true,
+    "tooltip-format": "Volume {volume}%"
   }
 }

@@ -13,6 +13,7 @@
     };
     stylix.url = "github:danth/stylix";
     swww.url = "github:LGFae/swww";
+    hyprswitch.url = "github:h3rmt/hyprswitch/release";
   };
 
   outputs = inputs@{

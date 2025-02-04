@@ -130,9 +130,11 @@ in
     hyprlock
     hyprpicker
     hyprshot
+    inputs.hyprswitch.packages.${pkgs.system}.default
     inputs.swww.packages.${pkgs.system}.swww
     kdePackages.dolphin
     kdePackages.qt6ct
+    kdePackages.qtmultimedia
     kdePackages.qtwayland
     kdePackages.qtstyleplugin-kvantum
     kitty
@@ -161,9 +163,18 @@ in
           FormPosition = "left";
           ScreenWidth = "${screen.width}";
           ScreenHeight = "${screen.height}";
-          MainColor="#343746";
+
+          # colors
+          HeaderTextColor="#343746";
+          DateTextColor="#343746";
+          TimeTextColor="#343746";
+
           AccentColor="#F8F8F2";
           placeholderColor="#99999b";
+
+          FormBackgroundColor="#242455";
+          BackgroundColor="#242455";
+          DimBackgroundColor="#242455";
         };
       }
     )

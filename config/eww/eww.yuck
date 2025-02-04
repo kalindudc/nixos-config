@@ -1,0 +1,49 @@
+(defvar eww "$(which eww) -c $HOME/.config/eww/")
+
+; widget controls
+(defvar power-vert false)
+(defvar volume false)
+(defvar brightness false)
+(defvar battery false)
+(defvar memory false)
+(defvar launcher false)
+(defvar network false)
+(defvar music-control false)
+(defvar calendar false)
+
+; deflisten variables
+(deflisten music :initial "" "playerctl -a --follow metadata --format '{{ title }}' || true")
+(deflisten current-music-cover :initial "" "playerctl -a --follow metadata --format {{mpris:artUrl}} || true")
+(deflisten workspaces :initial "[]" "sh $HOME/.config/eww/scripts/get-workspaces.sh")
+(deflisten current_workspace :initial "1" "sh $HOME/.config/eww/scripts/get-active-workspace.sh")
+
+; defpoll variables
+(defpoll hour :interval "10s" "date '+%H'")
+(defpoll minute :interval "10s" "date '+%M'")
+(defpoll clock :interval "10s" "date '+%H:%M'")
+
+(defpoll adjustable-brightness :interval "24h" :initial "false" "~/.config/eww/scripts/is-brightness.sh")
+(defpoll has-battery :interval "24h" :initial "false" "$HOME/.config/eww/scripts/is-battery.sh")
+(defpoll current-battery :interval "15s" :initial "0" "$HOME/.config/eww/scripts/get-battery.sh")
+(defpoll time-left :interval "15s" :initial "0" "$HOME/.config/eww/scripts/get-time-left.sh")
+
+(defpoll current-brightness :interval "1s" :initial "0" "echo $(( $(brightnessctl get) * 100 / $(brightnessctl max) ))")
+(defpoll current-memory :interval "10s" :initial "0" "$HOME/.config/eww/scripts/get-memory.sh")
+(defpoll current-music-seek :interval "1s" "$HOME/.config/eww/scripts/get-music-seek.sh")
+
+(defpoll current-network :interval "5s" "$HOME/.config/eww/scripts/get-network.sh")
+(defpoll current-network-strength :interval "5s" "$HOME/.config/eww/scripts/get-network-strength.sh")
+
+(defpoll current-volume :interval "1s" :initial "0" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100)}'")
+(defpoll volume-icon :interval "1s" "$HOME/.config/eww/scripts/get-volume-icons.sh")
+
+(defpoll calendar-day :interval "1h" "date '+%d'")
+(defpoll calendar-month :interval "12h" "date +%m")
+(defpoll calendar-year :interval "12h" "date '+%Y'")
+(defpoll calendar-short :interval "1h" "date '+%b %d, %Y'")
+
+(defpoll idle :interval "2s" :initial "false" "$HOME/.config/eww/scripts/get-hypridle-status.sh")
+
+
+; widgets
+(include "widgets/bar.yuck")

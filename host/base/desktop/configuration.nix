@@ -137,6 +137,7 @@
     ]))
     readline
     rustup
+    socat
     stow
     tree
     unzip
@@ -145,6 +146,7 @@
     vscode
     wget
     which
+    xclip
     xdg-user-dirs
     xdg-utils
     xz

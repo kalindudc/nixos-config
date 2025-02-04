@@ -53,13 +53,14 @@ in
     # wlogout icons
     ".config/wlogout/icon".source = "${../../../config/assets/wlogout}";
 
-    # ".config/eww".source = "${../../../config/eww}";
+    ".config/eww".source = "${../../../config/eww}";
 
     # hyprland
     ".config/hypr".source = "${../../../config/hypr}";
 
     ".config/waybar".source = "${../../../config/waybar}";
     ".config/waypaper".source = "${../../../config/waypaper}";
+    ".config/rofi-themes".source = "${../../../config/rofi/themes}";
 
     # application flags
     ".config/code-flags.conf".source = "${../../../config/code-flags.conf}";
