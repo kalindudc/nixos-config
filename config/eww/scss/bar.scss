@@ -1,7 +1,9 @@
 .main-bar {
   background-color: mix($background, $foreground, 95%);
   padding: 5px;
-  border-radius: 12px;
+  border-radius: 10px;
+  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
+  margin: 10px;
 }
 
 .launcher {
@@ -201,6 +203,12 @@ tooltip.background{
 .memory-label{
   color: mix($color3, $foreground, 90%);
   margin: 0 4px 0 4px;
+}
+
+.cal-box {
+  margin: 12px 10px 10px 10px;
+  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
 }
 
 .cal{

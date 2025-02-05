@@ -1,4 +1,4 @@
-(defvar eww "$(which eww) -c $HOME/.config/eww/")
+(defvar eww "$(which eww)")
 
 ; widget controls
 (defvar power-vert false)

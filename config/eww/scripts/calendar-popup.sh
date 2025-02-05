@@ -5,7 +5,7 @@ LOCK_FILE="$HOME/.cache/eww-calendar.lock"
 EWW_BIN="$HOME/eww/target/release/eww"
 
 run() {
-    ${EWW_BIN} -c $HOME/.config/eww/ open calendar
+    ${EWW_BIN} open calendar
 }
 
 # Run eww daemon if not running
@@ -19,7 +19,7 @@ if [[ ! -f "$LOCK_FILE" ]]; then
     touch "$LOCK_FILE"
     run
 else
-    ${EWW_BIN} -c $HOME/.config/eww/ close calendar
+    ${EWW_BIN} close calendar
     rm "$LOCK_FILE"
 fi
 }

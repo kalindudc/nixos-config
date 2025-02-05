@@ -10,15 +10,15 @@ calendar(){
   fi
 
   lock_file="$HOME/.cache/.eww_calendar.lock"
-  calendar_is_open=$(eww -c $HOME/.config/eww/ get calendar)
+  calendar_is_open=$(${eww} get calendar)
   if [[ $calendar_is_open == true ]]; then
     if [[ ! -f $lock_file ]]; then
-      ${eww} -c $HOME/.config/eww/ open calendar
+      ${eww} open calendar
       touch $lock_file
     fi
   else
     if [[ -f $lock_file ]]; then
-      ${eww} -c $HOME/.config/eww/ close calendar
+      ${eww} close calendar
       rm $lock_file
     fi
   fi
