@@ -10,22 +10,22 @@
 
   # https://github.com/tinted-theming/base16-schemes/blob/main/gruvbox-dark-pale.yaml
   stylix.base16Scheme = {
-    base00 = "262626";
-    base01 = "3a3a3a";
-    base02 = "4e4e4e";
-    base03 = "8a8a8a";
-    base04 = "949494";
-    base05 = "dab997";
-    base06 = "d5c4a1";
-    base07 = "ebdbb2";
-    base08 = "d75f5f";
-    base09 = "ff8700";
-    base0A = "ffaf00";
-    base0B = "afaf00";
-    base0C = "85ad85";
-    base0D = "83adad";
-    base0E = "d485ad";
-    base0F = "d65d0e";
+    base00 = "24283B";
+    base01 = "16161E";
+    base02 = "343A52";
+    base03 = "444B6A";
+    base04 = "787C99";
+    base05 = "A9B1D6";
+    base06 = "CBCCD1";
+    base07 = "D5D6DB";
+    base08 = "C0CAF5";
+    base09 = "A9B1D6";
+    base0A = "0DB9D7";
+    base0B = "9ECE6A";
+    base0C = "B4F9F8";
+    base0D = "2AC3DE";
+    base0E = "BB9AF7";
+    base0F = "F7768E";
   };
 
   stylix.polarity = "dark";
