@@ -30,6 +30,7 @@
 (defpoll current_battery :interval "15s" :initial "0" "upower -i $(upower -e | grep BAT) | grep -E percentage | awk '{print $2}' | sed 's/.$//'")
 (defpoll time_left :interval "15s" :initial "0" "$HOME/.config/eww/scripts/poll/battery_remaining_time.sh")
 (defpoll battery_icon :interval "1s" "$HOME/.config/eww/scripts/poll/get_current_battery_icon.sh")
+(defpoll battery_state :interval "10s" "upower -i $(upower -e | grep 'BAT') | grep -E 'state' | awk '{print $2}'")
 
 (defpoll current_brightness :interval "1s" :initial "0" "echo $(( $(brightnessctl get) * 100 / $(brightnessctl max) ))")
 (defpoll current_memory :interval "10s" :initial "0" "printf %.0f\\n $(free -m | grep Mem | awk '{print ($3/$2)*100}')")

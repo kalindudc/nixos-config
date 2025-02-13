@@ -312,23 +312,65 @@
 	  (box
       :class "menu_box"
 		  :orientation "v"
+      :space-evenly false
 
       (box
-        :class "menu_row"
+        :class "menu_title menu_item"
+        :orientation "h"
+        :space-evenly true
 
         (label
+          :class "menu_title_text"
           :xalign "0"
-          :text "Percentage: ${current_battery}%"
+          :text "Battery"
+        )
+        (label
+          :class "menu_title_subtext"
+          :xalign "1"
+          :text "${current_battery}%"
         )
       )
       (box
-        :class "menu_row"
+        :class "menu_section menu_item"
+        :orientation "v"
+        :space-evenly false
 
-        (label
-          :xalign "0"
-          :text "Time left: ${time_left}"
+        (box
+          :class "menu_section_text"
+
+          (label
+            :xalign "0"
+            :text "Power state: ${battery_state}"
+          )
+        )
+        (box
+          :class "menu_section_text"
+
+          (label
+            :xalign "0"
+            :text "Time left: ${time_left}"
+          )
         )
       )
+      ; (box
+      ;   :class "menu_footer menu_item"
+      ;   :orientation "v"
+      ;   :space-evenly false
+
+      ;   (eventbox
+      ;     :cursor "pointer"
+
+      ;     (button
+      ;       :class ""
+      ;       :onclick ""
+
+      ;       (label
+      ;         :xalign "0"
+      ;         :text "Power settings"
+      ;       )
+      ;     )
+      ;   )
+      ; )
     )
   )
 )
@@ -444,7 +486,6 @@
       :x "210px"
       :y "-20px"
       :width "270px"
-      :height "60px"
       :anchor "top right")
   :stacking "overlay"
 

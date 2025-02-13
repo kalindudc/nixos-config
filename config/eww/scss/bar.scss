@@ -42,14 +42,44 @@
 .menu_box {
   background-color: mix($background, $foreground, 95%);
   border-radius: 12px;
-  padding: 10px 30px 10px 30px;
+  padding: 18px 18px 18px 18px;
   margin: 12px 10px 10px 10px;
   box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
   border-radius: 12px;
 }
 
-.menu_row {
-  margin: 10px 0 10px 0;
+.menu_title {
+  padding-bottom: 20px;
+}
+
+.menu_item {
+  margin: 0 0 0 0;
+}
+
+.menu_section {
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+  border-radius: 12px;
+  // border-bottom: 1px solid $color6;
+}
+
+.menu_title_subtext {
+  font-weight: lighter;
+}
+
+.menu_section label {
+  font-weight: lighter;
+  font-size: 0.9rem;
+}
+
+.menu_section_text {
+  padding: 0 0 5px 0;
+}
+
+.menu_footer {
+  margin: 0;
+  border-radius: 12px;
+  background: red;
 }
 
 .workspaces {
@@ -143,4 +173,9 @@ tooltip.background {
   background-color: $background;
   border-radius: 5px;
   padding: 10px;
+}
+
+label {
+  padding: 0;
+  margin: 0;
 }

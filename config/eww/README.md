@@ -19,6 +19,6 @@ A single top bar that will be used as a status bar for desktop devices.
 - [ ] Microphone
 - [ ] Sound
 - [ ] WiFi / Network
-- [ ] Battery
+- [x] Battery
 - [ ] Time / Calendar / Notifications
 
