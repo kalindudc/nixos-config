@@ -1,48 +1,54 @@
-(defvar eww "$(which eww)")
+(defvar script_runner "$HOME/.config/eww/scripts/script_runner.sh -t -s")
+(defvar eww "$($HOME/.config/eww/scripts/get_eww.sh -t)")
 
-; widget controls
-(defvar power-vert false)
-(defvar volume false)
-(defvar brightness false)
-(defvar battery false)
-(defvar memory false)
-(defvar launcher false)
-(defvar network false)
-(defvar music-control false)
+; hover controls
+(defvar system_menu_button false)
+(defvar current_window_button false)
+(defvar workspaces_menu_button false)
+(defvar music_button false)
+(defvar brightness_button false)
+(defvar microphone_button false)
+(defvar sound_button false)
+(defvar network_button false)
+(defvar battery_button false)
+(defvar calendar_button false)
 (defvar calendar false)
+(defvar notifications_button false)
+
+(defvar active_menu "")
 
 ; deflisten variables
 (deflisten music :initial "" "playerctl -a --follow metadata --format '{{ title }}' || true")
-(deflisten current-music-cover :initial "" "playerctl -a --follow metadata --format {{mpris:artUrl}} || true")
-(deflisten workspaces :initial "[]" "sh $HOME/.config/eww/scripts/get-workspaces.sh")
-(deflisten current_workspace :initial "1" "sh $HOME/.config/eww/scripts/get-active-workspace.sh")
+(deflisten current_music_cover :initial "" "playerctl -a --follow metadata --format {{mpris:artUrl}} || true")
+(defpoll current_music_seek :interval "1s" "$HOME/.config/eww/scripts/poll/get_music_seek.sh")
 
-; defpoll variables
+(deflisten workspaces :initial "[]" "sh $HOME/.config/eww/scripts/get_workspaces.sh")
+(deflisten current_workspace :initial "1" "sh $HOME/.config/eww/scripts/get_active_workspace.sh")
+
+(defpoll can_adjust_brightness :interval "24h" :initial "false" "[ -n $(brightnessctl -l | grep -q 'backlight') ] && echo 'true' || echo 'false'")
+(defpoll has_battery :interval "24h" :initial "false" "[ -n $(ls /sys/class/power_supply/ | grep 'BAT') ] && echo 'true' || echo 'false'")
+(defpoll current_battery :interval "15s" :initial "0" "upower -i $(upower -e | grep BAT) | grep -E percentage | awk '{print $2}' | sed 's/.$//'")
+(defpoll time_left :interval "15s" :initial "0" "$HOME/.config/eww/scripts/poll/battery_remaining_time.sh")
+(defpoll battery_icon :interval "1s" "$HOME/.config/eww/scripts/poll/get_current_battery_icon.sh")
+
+(defpoll current_brightness :interval "1s" :initial "0" "echo $(( $(brightnessctl get) * 100 / $(brightnessctl max) ))")
+(defpoll current_memory :interval "10s" :initial "0" "printf %.0f\\n $(free -m | grep Mem | awk '{print ($3/$2)*100}')")
+
+(defpoll current_network :interval "5s" "$HOME/.config/eww/scripts/poll/get_network.sh")
+(defpoll current_network_strength :interval "5s" "$HOME/.config/eww/scripts/poll/get_network_strength.sh")
+
+(defpoll current_volume :interval "1s" :initial "0" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100)}'")
+(defpoll volume_icon :interval "1s" "$HOME/.config/eww/scripts/poll/get_current_volume_icon.sh")
+
 (defpoll hour :interval "10s" "date '+%H'")
 (defpoll minute :interval "10s" "date '+%M'")
-(defpoll clock :interval "10s" "date '+%H:%M'")
+(defpoll clock :interval "10s" "date '+%a %b %d %-I:%M %p'")
+(defpoll calendar_day :interval "1h" "date '+%d'")
+(defpoll calendar_month :interval "12h" "date +%m")
+(defpoll calendar_year :interval "12h" "date '+%Y'")
+(defpoll calendar_short :interval "1h" "date '+%b %d, %Y'")
 
-(defpoll adjustable-brightness :interval "24h" :initial "false" "~/.config/eww/scripts/is-brightness.sh")
-(defpoll has-battery :interval "24h" :initial "false" "$HOME/.config/eww/scripts/is-battery.sh")
-(defpoll current-battery :interval "15s" :initial "0" "$HOME/.config/eww/scripts/get-battery.sh")
-(defpoll time-left :interval "15s" :initial "0" "$HOME/.config/eww/scripts/get-time-left.sh")
-
-(defpoll current-brightness :interval "1s" :initial "0" "echo $(( $(brightnessctl get) * 100 / $(brightnessctl max) ))")
-(defpoll current-memory :interval "10s" :initial "0" "$HOME/.config/eww/scripts/get-memory.sh")
-(defpoll current-music-seek :interval "1s" "$HOME/.config/eww/scripts/get-music-seek.sh")
-
-(defpoll current-network :interval "5s" "$HOME/.config/eww/scripts/get-network.sh")
-(defpoll current-network-strength :interval "5s" "$HOME/.config/eww/scripts/get-network-strength.sh")
-
-(defpoll current-volume :interval "1s" :initial "0" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100)}'")
-(defpoll volume-icon :interval "1s" "$HOME/.config/eww/scripts/get-volume-icons.sh")
-
-(defpoll calendar-day :interval "1h" "date '+%d'")
-(defpoll calendar-month :interval "12h" "date +%m")
-(defpoll calendar-year :interval "12h" "date '+%Y'")
-(defpoll calendar-short :interval "1h" "date '+%b %d, %Y'")
-
-(defpoll idle :interval "2s" :initial "false" "$HOME/.config/eww/scripts/get-hypridle-status.sh")
+(defpoll idle :interval "2s" :initial "false" "pgrep -x hypridle > /dev/null && echo false || echo true")
 
 
 ; widgets

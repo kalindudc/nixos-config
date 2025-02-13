@@ -1,301 +1,466 @@
 ;;;;; Widgets ;;;;;
 
-;; Music ;;
-(defwidget music []
-  (eventbox :onhover "${eww} update music-control=true"
-            :onhoverlost "${eww} update music-control=false"
-            :cursor "pointer"
-    (revealer :transition "slideup"
-              :reveal {current-music-seek != "" ? "true" : "false"}
-              :duration "500ms"
-    (box  :class "music"
-          :orientation "horizontal"
-          :space-evenly "false"
-          :halign "center"
-          (box :class "song-cover-art" :vexpand "false" :hexpand "false" :style "background-image: url('${current-music-cover}');")
-      (box :class "parentbox"
-            :orientation "vertical"
-        (label  :text {music != "" ? "${music}" : ""}
-                :truncate "true"
-                :limit-width "25")
-        (scale :class "musicbar"
-               :value {current-music-seek != '' ? "${current-music-seek}" : "0"}
-               :orientation "horizontal"
-               :max 101
-               :min 0
-               :onchange "~/.config/eww/scripts/set-music-seek.sh {}"))
-        (revealer :transition "slideleft"
-                  :reveal music-control
-                  :duration "300ms"
-          (box  :class "music-control"
-                :space-evenly "true"
-                :spacing "16"
-            (button :class "prev"
-                    :onclick "playerctl --player=ncspot previous" "")
-            (button :class "pause"
-                    :onclick "playerctl --player=ncspot play-pause" "")
-            (button :class "next"
-                    :onclick "playerctl --player=ncspot next" "")))))))
+(defwidget system_menu []
+  (eventbox
+    :onhover "${eww} update system_menu_button=true"
+    :onhoverlost "${eww} update system_menu_button=false"
+    :cursor "pointer"
 
+    (box
+      :orientation "horizontal"
+      :space-evenly true
 
-;; button test ;;
+      (button
+        :class "button_bar_icon button_system_menu"
+        :onclick "${script_runner} menus/toggle_menu.sh -m system_menu"
 
+        "󱄅"
+      )
+    )
+  )
+)
 
-;; Launcher ;;
-(defwidget launcher []
-  (eventbox :onhover "${eww} update launcher=true"
-            :onhoverlost "${eww} update launcher=false"
-            :cursor "pointer"
-    (box  :orientation "horizontal"
-          :space-evenly "false"
-      (button :class "launcher"
-              :onclick "~/.config/eww/scripts/app-launcher.sh" "󰣇")
-      (revealer :transition "slideleft"
-                :reveal launcher
-                :duration "300ms"
-        (box  :class "powermenu"
-              :orientation "horizontal"
-              :space-evenly "true"
-              :spacing 24
-          (button :class "shutdown"
-                  :tooltip "Power Off"
-                  :onclick "shutdown now" "")
-          (button :class "lock"
-                  :tooltip "Lock"
-                  :onclick "~/.config/eww/scripts/lock.sh" "")
-          (button :class "reboot"
-                  :tooltip "Reboot"
-                  :onclick "reboot" "")
-          (button :class "exit"
-                  :tooltip "Exit"
-                  :onclick "killall Hyprland" "")
-          (button :class "suspend"
-                  :tooltip "Suspend"
-                  :onclick "systemctl suspend" ""))))))
+(defwidget current_window []
+  (eventbox
+    :onhover "${eww} update current_window_button=true"
+    :onhoverlost "${eww} update current_window_button=false"
+    :cursor "pointer"
 
-;; Clock ;;
-(defwidget clock []
-  (eventbox :onhover "${eww} update calendar=true && $HOME/.config/eww/scripts/toggle_calendar.sh"
-            :onhoverlost "${eww} update calendar=false && $HOME/.config/eww/scripts/toggle_calendar.sh"
-            :cursor "pointer"
-  (box  :class "clock"
-        :orientation "horizontal"
-        :space-evenly false
-        clock
-            (revealer :transition "slideleft"
-                      :reveal calendar
-        (button :class "calendar"
-                :onclick "$HOME/.config/eww/scripts/toggle_calendar.sh"
-                calendar-short)))))
+    (box
+      :orientation "horizontal"
+      :space-evenly true
+      :class "current_window"
+      :hexpand true
 
-;; Workspaces ;;
+      (button
+        :class "button_current_window"
+        :onclick "${script_runner} menus/toggle_menu.sh -m current_window_menu"
+
+        "current.window"
+      )
+    )
+  )
+)
+
 (defwidget workspaces []
-  (eventbox :onscroll "sh ~/.config/eww/scripts/change-active-workspace.sh {} ${current_workspace}"
-    (box :orientation "h"
-         :space-evenly false
-         :class "workspaces"
-         :hexpand true
+  (eventbox
+    :onhover "${eww} update workspaces_menu_button=true"
+    :onhoverlost "${eww} update workspaces_menu_button=false"
+    :cursor "pointer"
+    :onscroll "${script_runner} change_active_workspace.sh {} ${current_workspace}"
+
+    (box
+      :orientation "horizontal"
+      :space-evenly false
+      :class "workspaces"
+      :hexpand true
+
       (for workspace in workspaces
-        (button :class "workspace ${current_workspace == workspace.id ? "current" : ""}"
-                :onclick "hyprctl dispatch workspace ${workspace.id}"
-                "${current_workspace == workspace.id ? "" : ""}")))))
+        (button
+          :class "workspace ${current_workspace == workspace.id ? "current" : ""}"
+          :onclick "hyprctl dispatch workspace ${workspace.id}"
 
-;; network ;;
-(defwidget network []
-  (eventbox :onhover "${eww} update network=true"
-            :onhoverlost "${eww} update network=false"
-            :cursor "pointer"
-            :tooltip "Connected to ${current-network}"
-  (box  :class "network"
+          "${current_workspace == workspace.id ? "" : ""}"
+        )
+      )
+    )
+  )
+)
+
+(defwidget music []
+  (eventbox
+    :onhover "${eww} update music_button=true"
+    :onhoverlost "${eww} update music_button=false"
+    :cursor "pointer"
+
+    (revealer
+      :transition "slideup"
+      :reveal {current_music_seek != "" ? "true" : "false"}
+      :duration "500ms"
+
+      (box
+        :class "music"
         :orientation "horizontal"
-        :space-evenly "false"
-    (button :class "network-icon"
-            :onclick "~/.config/eww/scripts/wifi-menu.sh" current-network-strength)
-    (revealer :transition "slideright"
-              :reveal network
-              :duration "300ms"
-              (button :onclick "~/.config/eww/scripts/wifi-menu.sh"
-              (label  :class "network-label"
-                      :text current-network))))))
+        :space-evenly true
+        :halign "center"
 
-;; Volume ;;
-(defwidget volume []
-  (eventbox :onhover "${eww} update volume=true"
-            :onhoverlost "${eww} update volume=false"
-            :cursor "pointer"
-    (box  :class "volume"
-          :tooltip "Volume: ${current-volume}%"
-          :orientation "horizontal"
-          :space-evenly "false"
-          :spacing "2"
-      (button :class "volume-icon" volume-icon)
-      (revealer :transition "slideleft"
-                :reveal volume
-                :duration "300ms"
-        (scale :class "volbar"
-               :value current-volume
-               :orientation "horizontal"
-               :max 101
-               :min 0
-               :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%")))))
+        (box
+          :class "song-cover-art"
+          :vexpand "false"
+          :hexpand "false"
+          :style "background-image: url('${current_music_cover}');"
+        )
 
-;; Brightness ;;
+        (box
+          :class "parentbox"
+          :orientation "vertical"
+
+          (label
+            :text {music != "" ? "${music}" : ""}
+            :truncate "true"
+            :limit-width "25"
+          )
+          (scale
+            :class "musicbar"
+            :value {current_music_seek != '' ? "${current_music_seek}" : "0"}
+            :orientation "horizontal"
+            :max 101
+            :min 0
+            :onchange "${script_runner} set_music_seek.sh {}"
+          )
+        )
+        (revealer
+          :transition "slideleft"
+          :reveal music_button
+          :duration "300ms"
+
+          (box
+            :class "music-control"
+            :space-evenly "true"
+            :spacing "16"
+
+            (button
+              :class "prev"
+              :onclick "playerctl --player=ncspot previous" ""
+            )
+            (button
+              :class "pause"
+              :onclick "playerctl --player=ncspot play-pause" ""
+            )
+            (button
+              :class "next"
+              :onclick "playerctl --player=ncspot next" ""
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
 (defwidget brightness []
-  (eventbox :onhover "${eww} update brightness=true"
-            :onhoverlost "${eww} update brightness=false"
-            :cursor "pointer"
-    (box  :class "brightness"
-          :tooltip "Brightness: ${current-brightness}%"
-          :orientation "horizontal"
-          :space-evenly "false"
-          :spacing "2"
-          :visible adjustable-brightness
-      (button :class "brightness-icon" "󰖨")
-      (revealer :transition "slideleft"
-                :reveal brightness
-                :duration "300ms"
-        (scale :class "brightnessbar"
-               :value current-brightness
-               :orientation "horizontal"
-               :max 101
-               :min 0
-               :onchange "brightnessctl s {}%")))))
+  (eventbox
+    :onhover "${eww} update brightness_button=true"
+    :onhoverlost "${eww} update brightness_button=false"
+    :cursor "pointer"
 
+    (box
+      :orientation "horizontal"
+      :space-evenly true
 
-;; Battery ;;
+      (button
+        :class "button_bar_icon button_brightness_menu"
+        :onclick "${script_runner} menus/toggle_menu.sh -m brightness_menu"
+
+        "󰃠"
+      )
+    )
+  )
+)
+
+(defwidget microphone []
+  (eventbox
+    :onhover "${eww} update microphone_button=true"
+    :onhoverlost "${eww} update microphone_button=false"
+    :cursor "pointer"
+
+    (box
+      :orientation "horizontal"
+      :space-evenly true
+
+      (button
+        :class "button_bar_icon button_microphone_menu"
+        :onclick "${script_runner} menus/toggle_menu.sh -m microphone_menu"
+
+        "M"
+      )
+    )
+  )
+)
+
+(defwidget sound []
+  (eventbox
+    :onhover "${eww} update sound_button=true"
+    :onhoverlost "${eww} update sound_button=false"
+    :cursor "pointer"
+
+    (box
+      :orientation "horizontal"
+      :space-evenly true
+
+      (button
+        :class "button_bar_icon button_sound_menu"
+        :onclick "${script_runner} menus/toggle_menu.sh -m sound_menu"
+
+        volume_icon
+      )
+    )
+  )
+)
+
+(defwidget network []
+  (eventbox
+    :onhover "${eww} update network_button=true"
+    :onhoverlost "${eww} update network_button=false"
+    :cursor "pointer"
+
+    (box
+      :orientation "horizontal"
+      :space-evenly true
+
+      (button
+        :class "button_bar_icon button_network_menu"
+        :onclick "${script_runner} menus/toggle_menu.sh -m network_menu"
+
+        current_network_strength
+      )
+    )
+  )
+)
+
 (defwidget battery []
-(eventbox :onhover "${eww} update battery=true"
-          :onhoverlost "${eww} update battery=false"
-  (box  :class "battery"
-        :orientation "horizontal"
-        :space-evenly "false"
-        :visible has-battery
-    (circular-progress :value current-battery
-                       :class "batterybar"
-                       :thickness 4
-      (button :class "battery-icon"
-              :tooltip time-left
-              ""))
-      (revealer :transition "slideleft"
-                :reveal battery
-                :duration "300ms"
-        (label  :class "battery-label"
-                :tooltip time-left
-                :text "${current-battery}%")))))
+  (eventbox
+    :onhover "${eww} update battery_button=true"
+    :onhoverlost "${eww} update battery_button=false"
+    :cursor "pointer"
 
+    (box
+      :orientation "horizontal"
+      :space-evenly true
 
-;; Memory ;;
-(defwidget memory []
-(eventbox :onhover "${eww} update memory=true"
-          :onhoverlost "${eww} update memory=false"
-  (box  :class "memory"
-        :orientation "horizontal"
-        :space-evenly "false"
-    (circular-progress :value current-memory
-                       :class "memorybar"
-                       :thickness 4
-      (button :class "memory-icon"
-              :tooltip "memory used: ${current-memory}%"
-              ""))
-      (revealer :transition "slideleft"
-                :reveal memory
-                :duration "300ms"
-        (label  :class "memory-label"
-                :tooltip "memory used: ${current-memory}%"
-                :text "${current-memory}%")))))
+      (button
+        :class {current_battery < 20 ? "button_bar_icon button_battery_menu battery_low" : "button_bar_icon button_battery_menu"}
+        :onclick "${script_runner} menus/toggle_menu.sh -m battery_menu"
+
+        "${battery_icon}"
+      )
+    )
+  )
+)
+
+(defwidget clock []
+  (eventbox
+    :onhover "${eww} update calendar_button=true"
+    :onhoverlost "${eww} update calendar_button=false"
+    :cursor "pointer"
+
+    (box
+      :class "clock"
+      :orientation "horizontal"
+      :space-evenly false
+
+      (button
+        :class "calendar"
+        :onclick "${script_runner} menus/toggle_menu.sh -m calendar"
+
+        clock
+      )
+    )
+  )
+)
+
+(defwidget notifications []
+  (eventbox
+    :onhover "${eww} update notifications_button=true"
+    :onhoverlost "${eww} update notifications_button=false"
+    :cursor "pointer"
+
+    (box
+      :orientation "horizontal"
+      :space-evenly true
+
+      (button
+        :class "button_bar_icon button_notifications_menu"
+        :onclick "${script_runner} menus/toggle_menu.sh -m notifications_menu"
+
+        "N"
+      )
+    )
+  )
+)
 
 ;; Calendar Widget ;;
 (defwidget cal []
-  (eventbox :onhover "${eww} update calendar=true && $HOME/.config/eww/scripts/toggle_calendar.sh"
-            :onhoverlost "${eww} update calendar=false && $HOME/.config/eww/scripts/toggle_calendar.sh"
-            :cursor "pointer"
+  (eventbox
+    :onhover "${eww} update calendar=true"
+    :onhoverlost "${eww} update calendar=false"
+    :cursor "pointer"
 
-	(box :class "cal-box"
-		 :orientation "v"
-	(box :class "cal-inner-box"
-	(calendar :class "cal"
-			  :day calendar-day
-			  :month calendar-month
-			  :year calendar-year)))))
+	  (box
+      :class "cal-box"
+		  :orientation "v"
 
-;;;;;;;;;;;;;;;;;;;;
+      (box
+        :class "cal-inner-box"
 
+        (calendar
+          :class "cal"
+          :day calendar_day
+          :month calendar_month
+          :year calendar_year
+        )
+      )
+    )
+  )
+)
+
+(defwidget battery_menu_widget []
+  (eventbox
+    :onhover ""
+    :onhoverlost ""
+
+	  (box
+      :class "menu_box"
+		  :orientation "v"
+
+      (box
+        :class "menu_row"
+
+        (label
+          :xalign "0"
+          :text "Percentage: ${current_battery}%"
+        )
+      )
+      (box
+        :class "menu_row"
+
+        (label
+          :xalign "0"
+          :text "Time left: ${time_left}"
+        )
+      )
+    )
+  )
+)
+
+;;;;; Widgets END ;;;;;
 
 
 ;;;;;; Groups ;;;;;;
 
 ;; Left Group ;;
 (defwidget left []
-  (box  :class "left"
-        :orientation "horizontal"
-        :space-evenly "false"
-        :halign "start"
-        :vexpand "false"
-        :hexpand "false"
-    (launcher)
-    (workspaces)))
+  (box
+    :class "left"
+    :orientation "horizontal"
+    :space-evenly false
+    :halign "start"
+    :vexpand "false"
+    :hexpand "false"
 
-;; Right Group ;;
-(defwidget right []
-  (box  :class "right"
-        :orientation "horizontal"
-        :space-evenly "false"
-        :halign "end"
-        :vexpand "false"
-        :hexpand "false"
-    (memory)
-    (battery)
-    (brightness)
-    (volume)
-    (network)
-    (clock)))
+    (system_menu)
+    (current_window)
+    (workspaces)
+  )
+)
 
 ;; Center Group ;;
 (defwidget center []
-  (box  :class "center"
-        :orientation "horizontal"
-        :space-evenly "false"
-        :halign "center"
-        :vexpand "false"
-        :hexpand "false"
-    (music)))
+  (box
+    :class "center"
+    :orientation "horizontal"
+    :space-evenly false
+    :halign "center"
+    :vexpand "false"
+    :hexpand "false"
+
+    (music)
+  )
+)
+
+;; Right Group ;;
+(defwidget right []
+  (box
+    :class "right"
+    :orientation "horizontal"
+    :space-evenly false
+    :halign "end"
+    :vexpand "false"
+    :hexpand "false"
+
+    (brightness)
+    (microphone)
+    (sound)
+    (network)
+    (battery)
+    (clock)
+    (notifications)
+  )
+)
 
 ;; Bar ;;
 (defwidget bar []
-  (box  :class "main-bar"
-        :orientation "horizontal"
-        :vexpand "false"
-        :hexpand "false"
+  (box
+    :class "main-bar"
+    :orientation "horizontal"
+    :vexpand "false"
+    :hexpand "false"
+
     (left)
     (center)
-    (right)))
+    (right)
+  )
+)
+;;;;;; Groups END ;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;
 
-
-
-;;;;;; Window ;;;;;;
+;;;;;; Windows ;;;;;;
 
 ;; bar ;;
 (defwindow bar
-          :monitor '[1, 0]'
-          :geometry (geometry :x "0px"
-                              :y "0px"
-                              :width "100%"
-                              :height "0px"
-                              :anchor "top center")
-          :stacking "bg"
-          :exclusive "true"
-          :focusable "false"
-          (bar))
+  :monitor '[1, 0]'
+  :geometry (
+    geometry
+      :x "0px"
+      :y "0px"
+      :width "100%"
+      :height "0px"
+      :anchor "top center")
+  :stacking "bg"
+  :exclusive "true"
+  :focusable "false"
+
+  (bar)
+)
 
 (defwindow calendar
-          :monitor '[1, 0]'
-          :geometry (geometry :x "10px"
-                              :y "-20px"
-                              :width "270px"
-                              :height "60px"
-                              :anchor "top right")
-          :stacking "overlay"
-          (cal))
+  :monitor '[1, 0]'
+  :geometry (
+    geometry
+      :x "10px"
+      :y "-20px"
+      :width "270px"
+      :height "60px"
+      :anchor "top right")
+  :stacking "overlay"
 
+  (cal)
+)
+
+(defwindow battery_menu
+  :monitor '[1, 0]'
+  :geometry (
+    geometry
+      :x "210px"
+      :y "-20px"
+      :width "270px"
+      :height "60px"
+      :anchor "top right")
+  :stacking "overlay"
+
+  (battery_menu_widget)
+)
+
+;;;;;; Windows END ;;;;;;
+
+
+; https://github.com/elkowar/eww/issues/472#issuecomment-1146860335
+; (defwidget closer [window]
+;   (eventbox :onclick "${eww} close ${window} && ${eww} close ${window}-closer"))
+
+; (defwindow calendar-closer
+;   :monitor 0
+;   :geometry (geometry :width "100%" :height "100%")
+;   :stacking "fg"
+;   :focusable false
+;   (closer :window "calendar"))
