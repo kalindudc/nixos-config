@@ -548,6 +548,12 @@
     :vexpand "false"
     :hexpand "false"
 
+    (systray
+      :spacing "4"
+      :icon-size "24"
+      :orientation "h"
+      :prepend-new "true"
+    )
     (brightness)
     (bluetooth)
     (microphone)
