@@ -13,12 +13,13 @@ A single top bar that will be used as a status bar for desktop devices.
 - [x] Bar outline and placeholders
 - [ ] System Menu
 - [ ] Current Window
-- [ ] Workspace Manager
-- [ ] Music
+- [x] Workspace Manager
+- [x] Music
 - [ ] Brightness
-- [ ] Microphone
-- [ ] Sound
+- [x] Microphone
+- [x] Sound
 - [ ] WiFi / Network
 - [x] Battery
-- [ ] Time / Calendar / Notifications
+- [x] Time / Calendar
+- [ ] Notifications
 

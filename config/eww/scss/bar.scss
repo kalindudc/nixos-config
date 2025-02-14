@@ -1,9 +1,10 @@
 .main-bar {
   background-color: mix($background, $foreground, 95%);
   padding: 8px;
-  border-radius: 10px;
+  border-radius: 8px;
   box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
   margin: 8px 8px 10px 8px;
+  border: 1px solid $foreground;
 }
 
 .button_bar_icon {
@@ -28,7 +29,7 @@
 }
 
 .button_bar_icon:hover {
-  background-color: mix($background, $foreground, 75%);;
+  background-color: mix($background, $foreground, 75%);
 }
 
 .button_current_window {
@@ -41,15 +42,16 @@
 
 .menu_box {
   background-color: mix($background, $foreground, 95%);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 18px 18px 18px 18px;
   margin: 12px 10px 10px 10px;
-  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
-  border-radius: 12px;
+  // box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
+  border: 1px solid mix($background, $foreground, 5%);
 }
 
 .menu_title {
-  padding-bottom: 20px;
+  padding-bottom: 15px;
+  color: $foreground;
 }
 
 .menu_item {
@@ -65,11 +67,17 @@
 
 .menu_title_subtext {
   font-weight: lighter;
+  font-size: 0.92rem;
+}
+
+.menu_title_subtext_alert {
+  color: $color1;
 }
 
 .menu_section label {
   font-weight: lighter;
   font-size: 0.9rem;
+  color: $color7;
 }
 
 .menu_section_text {
@@ -79,7 +87,6 @@
 .menu_footer {
   margin: 0;
   border-radius: 12px;
-  background: red;
 }
 
 .workspaces {
@@ -87,47 +94,74 @@
 }
 
 .clock {
-  color: $color6;
+  color: mix($color6, $foreground, 70%);
   padding: 0 4px 0 4px;
 }
 
+.current_window {
+  color: $foreground;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}
+
 .workspaces {
-  font-weight: 900;
-  font-size: 1.1rem;
+  font-weight: bold;
+  font-size: 1.15rem;
   border-radius: 50px;
   padding: 0 4px;
 }
 
+.button_current_window {
+  transition: all 0.15s ease-in-out;
+  margin: 0;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.button_current_window:hover {
+  color: mix($color6, $foreground, 70%);
+}
+
 .workspace {
-  color: $color3;
+  color: $color7;
   border-radius: 1rem;
   margin: 0 0.25rem;
   padding: 0 0.1rem;
-  transition: color 0.3s ease-in-out;
+  transition: color 0.15s ease-in-out;
+  font-weight: bolder;
 }
 
 .workspace.current {
-  color: $color2;
+  color: $foreground;
 }
 
 .workspace:hover {
-  color: mix($foreground, $color2, 70%);
+  color: mix($foreground, $color6, 10%);
 }
 
-.musicbar{
+.musicbar {
   min-width: 150px;
 }
+
+.musicbar trough {
+  all: unset;
+  background-color: mix($background, $foreground, 80%);
+  border-radius: 5px;
+  min-height: 4px;
+  min-width: 50px;
+  margin: 0 .5rem 0 .1rem ;
+}
+
 .musicbar trough highlight {
   min-height: 4px;
   background-color: mix($color6, $foreground, 90%);
   border-radius: 5px;
 }
-.music{
+.music {
   font-size: .7rem;
-}
-.memory-icon{
-  padding: 2px;
-  color: transparent;
+  color: mix($background, $foreground, 10%);
+  transition: all 0.15s ease-in-out;
 }
 
 .music-control{
@@ -145,13 +179,16 @@
 
 .cal-box {
   margin: 12px 10px 10px 10px;
-  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
-  border-radius: 12px;
+  // box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  color: $foreground;
+  border: 1px solid mix($background, $foreground, 5%);
+
 }
 
 .cal{
   background-color: mix($background, $foreground, 95%);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 4px;
 }
 
@@ -170,7 +207,7 @@
 
 tooltip.background {
   color: $background;
-  background-color: $background;
+  background-color: mix($background, $foreground, 95%);
   border-radius: 5px;
   padding: 10px;
 }
@@ -178,4 +215,19 @@ tooltip.background {
 label {
   padding: 0;
   margin: 0;
+}
+
+.menu_slider trough {
+  all: unset;
+  background-color: mix($background, $foreground, 80%);
+  border-radius: 15px;
+  min-height: 15px;
+  min-width: 100px;
+  margin: 0 .5rem 0 .1rem ;
+}
+
+.menu_slider trough highlight {
+  min-height: 15px;
+  background-color: mix($background, $foreground, 40%);
+  border-radius: 15px;
 }

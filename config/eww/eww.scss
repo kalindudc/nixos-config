@@ -1,21 +1,22 @@
-$background: #1a1b26;
-$foreground: #c0caf5;
-$color0: #15161e;
-$color1: #f7768e;
-$color2: #9ece6a;
-$color3: #e0af68;
-$color4: #7aa2f7;
-$color5: #bb9af7;
-$color6: #7dcfff;
-$color7: #a9b1d6;
-$color8: #414868;
-$color9: #f7768e;
-$color10: #9ece6a;
-$color11: #e0af68;
-$color12: #7aa2f7;
-$color13: #bb9af7;
-$color14: #7dcfff;
-$color15: #c0caf5;
+$background: rgba(243, 243, 243, 0.9); // Soft light gray
+$foreground: #2e2e2e;  // Dark neutral gray for text
+$color0: #e5e5e5;  // Light gray (for UI elements)
+$color1: #d9534f;  // Soft red
+$color2: #5cb85c;  // Soft green
+$color3: #f0ad4e;  // Warm yellow
+$color4: #5b90f6;  // Neutral blue
+$color5: #af86c6;  // Muted purple
+$color6: #56c8d8;  // Soft cyan
+$color7: #545c62;  // Neutral gray for alternative text
+$color8: #ced4da;  // Slightly darker gray
+$color9: #d9534f;  // Bright red
+$color10: #5cb85c; // Bright green
+$color11: #f0ad4e; // Bright yellow
+$color12: #5b90f6; // Bright blue
+$color13: #af86c6; // Bright purple
+$color14: #56c8d8; // Bright cyan
+$color15: #2e2e2e; // Darkest text color
+
 
 * {
   all: unset;

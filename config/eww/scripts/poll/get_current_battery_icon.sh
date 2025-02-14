@@ -9,6 +9,8 @@ elif (( battery_percentage > 40 )); then
   echo ""
 elif (( battery_percentage > 20 )); then
   echo ""
+elif (( battery_percentage > 6 )); then
+  echo ""
 else
   echo " $battery_percentage%"
 fi

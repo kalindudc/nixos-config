@@ -75,7 +75,7 @@
 
     (revealer
       :transition "slideup"
-      :reveal {current_music_seek != "" ? "true" : "false"}
+      :reveal {current_music_seek != 0 ? "true" : "false"}
       :duration "500ms"
 
       (box
@@ -121,15 +121,15 @@
 
             (button
               :class "prev"
-              :onclick "playerctl --player=ncspot previous" ""
+              :onclick "playerctl previous" ""
             )
             (button
               :class "pause"
-              :onclick "playerctl --player=ncspot play-pause" ""
+              :onclick "playerctl play-pause" ""
             )
             (button
               :class "next"
-              :onclick "playerctl --player=ncspot next" ""
+              :onclick "playerctl next" ""
             )
           )
         )
@@ -152,7 +152,27 @@
         :class "button_bar_icon button_brightness_menu"
         :onclick "${script_runner} menus/toggle_menu.sh -m brightness_menu"
 
-        "󰃠"
+        current_brightness_icon
+      )
+    )
+  )
+)
+
+(defwidget bluetooth []
+  (eventbox
+    :onhover "${eww} update bluetooth_button=true"
+    :onhoverlost "${eww} update bluetooth_button=false"
+    :cursor "pointer"
+
+    (box
+      :orientation "horizontal"
+      :space-evenly true
+
+      (button
+        :class "button_bar_icon button_bluetooth_menu"
+        :onclick "${script_runner} menus/toggle_menu.sh -m bluetooth_menu"
+
+        "󰂯"
       )
     )
   )
@@ -170,9 +190,10 @@
 
       (button
         :class "button_bar_icon button_microphone_menu"
-        :onclick "${script_runner} menus/toggle_menu.sh -m microphone_menu"
+        ; :onclick "${script_runner} menus/toggle_menu.sh -m microphone_menu"
+        :onclick "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 
-        "M"
+        microphone_icon
       )
     )
   )
@@ -273,7 +294,7 @@
         :class "button_bar_icon button_notifications_menu"
         :onclick "${script_runner} menus/toggle_menu.sh -m notifications_menu"
 
-        "N"
+        "󰎟"
       )
     )
   )
@@ -305,72 +326,179 @@
 )
 
 (defwidget battery_menu_widget []
-  (eventbox
-    :onhover ""
-    :onhoverlost ""
+  (box
+    :class "menu_box"
+    :orientation "v"
+    :space-evenly false
 
-	  (box
-      :class "menu_box"
-		  :orientation "v"
+    (box
+      :class "menu_title menu_item"
+      :orientation "h"
+      :space-evenly true
+
+      (label
+        :class "menu_title_text"
+        :xalign "0"
+        :text "Battery"
+      )
+      (label
+        :class "menu_title_subtext"
+        :class {current_battery < 20 ? "menu_title_subtext menu_title_subtext_alert" : "menu_title_subtext"}
+        :xalign "1"
+        :text "${current_battery}%"
+      )
+    )
+    (box
+      :class "menu_section menu_item"
+      :orientation "v"
       :space-evenly false
 
       (box
-        :class "menu_title menu_item"
-        :orientation "h"
-        :space-evenly true
+        :class "menu_section_text"
 
         (label
-          :class "menu_title_text"
           :xalign "0"
-          :text "Battery"
-        )
-        (label
-          :class "menu_title_subtext"
-          :xalign "1"
-          :text "${current_battery}%"
+          :text "Power state: ${battery_state}"
         )
       )
       (box
-        :class "menu_section menu_item"
-        :orientation "v"
-        :space-evenly false
+        :class "menu_section_text"
 
-        (box
-          :class "menu_section_text"
-
-          (label
-            :xalign "0"
-            :text "Power state: ${battery_state}"
-          )
-        )
-        (box
-          :class "menu_section_text"
-
-          (label
-            :xalign "0"
-            :text "Time left: ${time_left}"
-          )
+        (label
+          :xalign "0"
+          :text "Time left: ${time_left}"
         )
       )
-      ; (box
-      ;   :class "menu_footer menu_item"
-      ;   :orientation "v"
-      ;   :space-evenly false
+    )
+    ; (box
+    ;   :class "menu_footer menu_item"
+    ;   :orientation "v"
+    ;   :space-evenly false
 
-      ;   (eventbox
-      ;     :cursor "pointer"
+    ;   (eventbox
+    ;     :cursor "pointer"
 
-      ;     (button
-      ;       :class ""
-      ;       :onclick ""
+    ;     (button
+    ;       :class ""
+    ;       :onclick ""
 
-      ;       (label
-      ;         :xalign "0"
-      ;         :text "Power settings"
-      ;       )
-      ;     )
-      ;   )
-      ; )
+    ;       (label
+    ;         :xalign "0"
+    ;         :text "Power settings"
+    ;       )
+    ;     )
+    ;   )
+    ; )
+  )
+)
+
+(defwidget sound_menu_widget []
+  (box
+    :class "menu_box"
+    :orientation "v"
+    :space-evenly false
+
+    (box
+      :class "menu_title menu_item"
+      :orientation "h"
+      :space-evenly true
+
+      (label
+        :class "menu_title_text"
+        :xalign "0"
+        :text "Sound"
+      )
+      (label
+        :class "menu_title_subtext"
+        :xalign "1"
+        :text "${current_volume}%"
+      )
+    )
+    (box
+      :class "menu_section menu_item"
+      :orientation "v"
+      :space-evenly false
+
+      (eventbox
+        :cursor "pointer"
+
+        (scale
+          :class "menu_slider volume_slider"
+          :value current_volume
+          :orientation "horizontal"
+          :max 101
+          :min 0
+          :onchange
+
+          "pactl set-sink-volume @DEFAULT_SINK@ {}%"
+        )
+      )
+    )
+    (box
+      :class "menu_separator"
+      :orientation "v"
+      :space-evenly false
+
+      ""
+    )
+    (box
+      :class "menu_section menu_item"
+      :orientation "v"
+      :space-evenly false
+
+      (box
+        :class "menu_section_text"
+
+        (label
+          :xalign "0"
+          :text "Mute: ${is_audio_muted}"
+        )
+      )
+    )
+  )
+)
+
+(defwidget brightness_menu_widget []
+  (box
+    :class "menu_box"
+    :orientation "v"
+    :space-evenly false
+
+    (box
+      :class "menu_title menu_item"
+      :orientation "h"
+      :space-evenly true
+
+      (label
+        :class "menu_title_text"
+        :xalign "0"
+        :text "Brightness"
+      )
+      (label
+        :class "menu_title_subtext"
+        :xalign "1"
+        :text "${current_brightness}%"
+      )
+    )
+    (box
+      :class "menu_section menu_item"
+      :orientation "v"
+      :space-evenly false
+
+      (eventbox
+        :cursor "pointer"
+
+        (scale
+          :class "menu_slider volume_slider"
+          :value current_brightness
+          :orientation "horizontal"
+          :max 101
+          :min 0
+          :onchange
+
+          "brightnessctl s {}%"
+        )
+      )
     )
   )
 )
@@ -421,6 +549,7 @@
     :hexpand "false"
 
     (brightness)
+    (bluetooth)
     (microphone)
     (sound)
     (network)
@@ -461,6 +590,7 @@
   :stacking "bg"
   :exclusive "true"
   :focusable "false"
+  :namespace "eww-bar"
 
   (bar)
 )
@@ -475,6 +605,7 @@
       :height "60px"
       :anchor "top right")
   :stacking "overlay"
+  :namespace "eww-overlay"
 
   (cal)
 )
@@ -488,8 +619,37 @@
       :width "270px"
       :anchor "top right")
   :stacking "overlay"
+  :namespace "eww-overlay"
 
   (battery_menu_widget)
+)
+
+(defwindow sound_menu
+  :monitor '[1, 0]'
+  :geometry (
+    geometry
+      :x "300px"
+      :y "-20px"
+      :width "300px"
+      :anchor "top right")
+  :stacking "overlay"
+  :namespace "eww-overlay"
+
+  (sound_menu_widget)
+)
+
+(defwindow brightness_menu
+  :monitor '[1, 0]'
+  :geometry (
+    geometry
+      :x "410px"
+      :y "-20px"
+      :width "300px"
+      :anchor "top right")
+  :stacking "overlay"
+  :namespace "eww-overlay"
+
+  (brightness_menu_widget)
 )
 
 ;;;;;; Windows END ;;;;;;

@@ -7,6 +7,7 @@
 (defvar workspaces_menu_button false)
 (defvar music_button false)
 (defvar brightness_button false)
+(defvar bluetooth_button false)
 (defvar microphone_button false)
 (defvar sound_button false)
 (defvar network_button false)
@@ -33,13 +34,16 @@
 (defpoll battery_state :interval "10s" "upower -i $(upower -e | grep 'BAT') | grep -E 'state' | awk '{print $2}'")
 
 (defpoll current_brightness :interval "1s" :initial "0" "echo $(( $(brightnessctl get) * 100 / $(brightnessctl max) ))")
+(defpoll current_brightness_icon :interval "1s" :initial "0" "$HOME/.config/eww/scripts/poll/get_current_brightness_icon.sh")
 (defpoll current_memory :interval "10s" :initial "0" "printf %.0f\\n $(free -m | grep Mem | awk '{print ($3/$2)*100}')")
 
 (defpoll current_network :interval "5s" "$HOME/.config/eww/scripts/poll/get_network.sh")
 (defpoll current_network_strength :interval "5s" "$HOME/.config/eww/scripts/poll/get_network_strength.sh")
 
+(defpoll is_audio_muted :interval "1s" :initial "0" "pactl list sinks | grep -E 'Name:|Mute:' | awk '/Name:/{sink=$2} /Mute:/{print $2}'")
 (defpoll current_volume :interval "1s" :initial "0" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100)}'")
 (defpoll volume_icon :interval "1s" "$HOME/.config/eww/scripts/poll/get_current_volume_icon.sh")
+(defpoll microphone_icon :interval "1s" "echo $( [ \"$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{print $3}')\" = '[MUTED]' ] && echo '' || echo '' )")
 
 (defpoll hour :interval "10s" "date '+%H'")
 (defpoll minute :interval "10s" "date '+%M'")
