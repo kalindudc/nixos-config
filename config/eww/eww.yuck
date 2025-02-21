@@ -16,6 +16,7 @@
 (defvar calendar false)
 (defvar notifications_button false)
 
+(defvar fastfetch_output "")
 (defvar active_menu "")
 
 ; deflisten variables
@@ -54,7 +55,8 @@
 (defpoll calendar_short :interval "1h" "date '+%b %d, %Y'")
 
 (defpoll idle :interval "2s" :initial "false" "pgrep -x hypridle > /dev/null && echo false || echo true")
-
+(defpoll user_name :interval "24h" :initial "" "whoami")
+; (defpoll fastfetch_output :interval "5s" :initial "" "fastfetch --logo none")
 
 ; widgets
 (include "widgets/bar.yuck")

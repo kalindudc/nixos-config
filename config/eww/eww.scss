@@ -1,5 +1,5 @@
-$background: rgba(243, 243, 243, 0.9); // Soft light gray
-$foreground: #2e2e2e;  // Dark neutral gray for text
+$background: rgba(255, 255, 255, 0.9); // Soft light gray
+$foreground: #1e1e1e;  // Dark neutral gray for text
 $color0: #e5e5e5;  // Light gray (for UI elements)
 $color1: #d9534f;  // Soft red
 $color2: #5cb85c;  // Soft green
@@ -20,7 +20,7 @@ $color15: #2e2e2e; // Darkest text color
 
 * {
   all: unset;
-  font-family: "FiraCode Nerd Font", monospace;
+  font-family: "San Francisco", "FiraCode Nerd Font", sans-serif;
   font-weight: bold;
 }
 

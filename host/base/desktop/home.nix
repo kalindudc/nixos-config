@@ -64,6 +64,7 @@ in
 
     # application flags
     ".config/code-flags.conf".source = "${../../../config/code-flags.conf}";
+    ".config/fastfetch/config.jsonc".source = "${../../../config/fastfetch-config.jsonc}";
   };
 
   # Packages that should be installed to the user profile.

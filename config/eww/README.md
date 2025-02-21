@@ -11,15 +11,17 @@ A single top bar that will be used as a status bar for desktop devices.
 ```
 #### TODOs
 - [x] Bar outline and placeholders
-- [ ] System Menu
+- [x] System Menu
 - [ ] Current Window
 - [x] Workspace Manager
 - [x] Music
-- [ ] Brightness
+- [x] Brightness
+- [ ] Bluetooth
 - [x] Microphone
 - [x] Sound
 - [ ] WiFi / Network
 - [x] Battery
 - [x] Time / Calendar
 - [ ] Notifications
+- [ ] Turn variables like volume and brightness into deflistens instead of polls so they can update instantly
 

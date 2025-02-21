@@ -11,9 +11,16 @@
   padding: 5px;
   font-size: 1rem;
   color: $foreground;
-  padding: 0 12px 0 8px;
+  padding: 0 12px 0 10px;
   border-radius: 5px;
   transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
+  min-width: 18px;
+}
+
+.button_bar_icon label {
+  min-width: 0px;
+  padding: 0;
+  margin: 0;
 }
 
 .battery_low {
@@ -43,7 +50,7 @@
 .menu_box {
   background-color: mix($background, $foreground, 95%);
   border-radius: 8px;
-  padding: 18px 18px 18px 18px;
+  padding: 18px 10px 18px 10px;
   margin: 12px 10px 10px 10px;
   // box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
   border: 1px solid mix($background, $foreground, 5%);
@@ -75,7 +82,7 @@
 }
 
 .menu_section label {
-  font-weight: lighter;
+  font-weight: normal;
   font-size: 0.9rem;
   color: $color7;
 }
@@ -84,9 +91,53 @@
   padding: 0 0 5px 0;
 }
 
+.menu_item_alt {
+  font-size: 0.9rem;
+  padding: 0px;
+}
+
+.menu_item_alt label {
+  font-weight: lighter;
+  color: mix($background, $foreground, 5%);
+}
+
 .menu_footer {
   margin: 0;
   border-radius: 12px;
+}
+
+.menu_button {
+  padding: 1px 5px 1px 5px;
+  border-radius: 5px;
+  transition: all 0.15s ease-in-out;
+  margin: 0 0 5px 0;;
+}
+
+.menu_button:hover {
+  background-color: mix($color4, $foreground, 85%);
+  padding: 5px 10px 5px 10px;
+}
+
+.menu_button_label {
+  transition: all 0.15s ease-in-out;
+}
+
+.menu_button:hover .menu_button_label {
+  font-weight: bold;
+  color: $color8;
+}
+
+.menu_separator {
+  font-size: 0px;
+  margin: 10px 0 10px 0;
+  padding: 0;
+  border-bottom: 1px solid mix($background, $foreground, 75%);
+}
+
+.menu_separator_no_border {
+  font-size: 0px;
+  margin: 10px 0 10px 0;
+  padding: 0;
 }
 
 .workspaces {
@@ -96,6 +147,7 @@
 .clock {
   color: mix($color6, $foreground, 70%);
   padding: 0 4px 0 4px;
+  margin: 0 0 0 10px;
 }
 
 .current_window {
@@ -178,6 +230,7 @@
 }
 
 .cal-box {
+  background-color: mix($background, $foreground, 95%);
   margin: 12px 10px 10px 10px;
   // box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
@@ -187,22 +240,20 @@
 }
 
 .cal{
-  background-color: mix($background, $foreground, 95%);
   border-radius: 8px;
   padding: 4px;
+  transition: all 0.15s ease-in-out;
 }
 
-.calendar{
-  padding: 0 4px 0 8px;
+.cal * {
+  transition: all 0.15s ease-in-out;
 }
 
 .cal:selected{
-  background-color: $color9;
+  background-color: mix($color4, $foreground,85%);;
   font-weight: bold;
-}
-
-.cal.indeterminate{
-  background-color: $color9;
+  color: $color8;
+  transition: all 0.15s ease-in-out;
 }
 
 tooltip.background {
@@ -224,10 +275,27 @@ label {
   min-height: 15px;
   min-width: 100px;
   margin: 0 .5rem 0 .1rem ;
+  transition: all 0.1s ease-in-out;
 }
 
 .menu_slider trough highlight {
+  transition: all 0.1s ease-in-out;
   min-height: 15px;
   background-color: mix($background, $foreground, 40%);
   border-radius: 15px;
+}
+
+.menu_slider:hover trough highlight {
+  background-color: mix($color4, $foreground,85%);
+}
+
+.system_info {
+  color: $foreground;
+  font-weight: lighter;
+  padding: 0 10px 0 10px;
+}
+
+.button_menu_header {
+  padding: 5px;
+  font-weight: lighter;
 }

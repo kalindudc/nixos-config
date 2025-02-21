@@ -152,7 +152,10 @@
         :class "button_bar_icon button_brightness_menu"
         :onclick "${script_runner} menus/toggle_menu.sh -m brightness_menu"
 
-        current_brightness_icon
+        (label
+          :xalign "0.5"
+          :text "${current_brightness_icon}"
+        )
       )
     )
   )
@@ -172,7 +175,10 @@
         :class "button_bar_icon button_bluetooth_menu"
         :onclick "${script_runner} menus/toggle_menu.sh -m bluetooth_menu"
 
-        "󰂯"
+        (label
+          :xalign "0.5"
+          :text "󰂯"
+        )
       )
     )
   )
@@ -193,7 +199,10 @@
         ; :onclick "${script_runner} menus/toggle_menu.sh -m microphone_menu"
         :onclick "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 
-        microphone_icon
+        (label
+          :xalign "0.5"
+          :text "${microphone_icon}"
+        )
       )
     )
   )
@@ -213,7 +222,10 @@
         :class "button_bar_icon button_sound_menu"
         :onclick "${script_runner} menus/toggle_menu.sh -m sound_menu"
 
-        volume_icon
+        (label
+          :xalign "0.5"
+          :text "${volume_icon}"
+        )
       )
     )
   )
@@ -233,7 +245,10 @@
         :class "button_bar_icon button_network_menu"
         :onclick "${script_runner} menus/toggle_menu.sh -m network_menu"
 
-        current_network_strength
+        (label
+          :xalign "0.5"
+          :text "${current_network_strength}"
+        )
       )
     )
   )
@@ -253,7 +268,10 @@
         :class {current_battery < 20 ? "button_bar_icon button_battery_menu battery_low" : "button_bar_icon button_battery_menu"}
         :onclick "${script_runner} menus/toggle_menu.sh -m battery_menu"
 
-        "${battery_icon}"
+        (label
+          :xalign "0.5"
+          :text "${battery_icon}"
+        )
       )
     )
   )
@@ -294,7 +312,10 @@
         :class "button_bar_icon button_notifications_menu"
         :onclick "${script_runner} menus/toggle_menu.sh -m notifications_menu"
 
-        "󰎟"
+        (label
+          :xalign "0.5"
+          :text "󰎟"
+        )
       )
     )
   )
@@ -435,23 +456,26 @@
       )
     )
     (box
-      :class "menu_separator"
-      :orientation "v"
-      :space-evenly false
-
-      ""
+      :class "menu_separator_no_border"
     )
     (box
       :class "menu_section menu_item"
       :orientation "v"
       :space-evenly false
 
-      (box
+      (eventbox
         :class "menu_section_text"
+        :cursor "pointer"
 
-        (label
-          :xalign "0"
-          :text "Mute: ${is_audio_muted}"
+        (button
+          :class "menu_button"
+          :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+
+          (label
+            :class "menu_button_label"
+            :xalign "0"
+            :text "Mute: ${volume_icon}  ${is_audio_muted}"
+          )
         )
       )
     )
@@ -503,6 +527,170 @@
   )
 )
 
+(defwidget system_menu_widget []
+  (box
+    :class "menu_box"
+    :orientation "v"
+    :space-evenly false
+
+    (box
+      :class "menu_section menu_item"
+      :orientation "v"
+      :space-evenly false
+
+      (eventbox
+        :class "menu_section_text"
+        :cursor "pointer"
+
+        (button
+          :class "menu_button"
+          :onclick "${script_runner} menus/toggle_about_this_system_menu.sh"
+
+          (label
+            :class "menu_button_label"
+            :xalign "0"
+            :text "About this system"
+          )
+        )
+      )
+    )
+    (box
+      :class "menu_section menu_item"
+      :orientation "v"
+      :space-evenly false
+
+      (box
+        :class "menu_separator"
+      )
+
+      (eventbox
+        :class "menu_section_text"
+        :cursor "pointer"
+
+        (button
+          :class "menu_button"
+          :onclick "${script_runner} menus/power.sh -p suspend"
+
+          (label
+            :class "menu_button_label"
+            :xalign "0"
+            :text "Suspend"
+          )
+        )
+      )
+      (eventbox
+        :class "menu_section_text"
+        :cursor "pointer"
+
+        (button
+          :class "menu_button"
+          :onclick "${script_runner} menus/power.sh -p reboot"
+
+          (label
+            :class "menu_button_label"
+            :xalign "0"
+            :text "Restart..."
+          )
+        )
+      )
+      (eventbox
+        :class "menu_section_text"
+        :cursor "pointer"
+
+        (button
+          :class "menu_button"
+          :onclick "${script_runner} menus/power.sh -p shutdown"
+
+          (label
+            :class "menu_button_label"
+            :xalign "0"
+            :text "Shut Down..."
+          )
+        )
+      )
+    )
+    (box
+      :class "menu_section menu_item"
+      :orientation "v"
+      :space-evenly false
+
+      (box
+        :class "menu_separator"
+      )
+
+      (eventbox
+        :class "menu_section_text"
+        :cursor "pointer"
+
+        (button
+          :class "menu_button"
+          :onclick "${script_runner} menus/power.sh -p lock"
+
+          (label
+            :class "menu_button_label"
+            :xalign "0"
+            :text "Lock Screen"
+          )
+        )
+      )
+      (eventbox
+        :class "menu_section_text"
+        :cursor "pointer"
+
+        (button
+          :class "menu_button"
+          :onclick "${script_runner} menus/power.sh -p logout"
+
+          (label
+            :class "menu_button_label"
+            :xalign "0"
+            :text "Log Out of ${user_name}"
+          )
+        )
+      )
+    )
+  )
+)
+
+(defwidget menu_header []
+  (box
+    :class "menu_header_box"
+    :orientation "h"
+    :space-evenly false
+    :halign "end"
+
+    (box)
+    (box
+
+      (eventbox
+        :cursor "pointer"
+
+        (button
+          :class "button_bar_icon button_menu_header"
+          :onclick "${script_runner} menus/close_all_menus.sh"
+
+          ""
+        )
+      )
+    )
+  )
+)
+
+(defwidget about_this_system []
+  (box
+    :class "menu_box"
+    :orientation "v"
+    :space-evenly false
+
+    (menu_header)
+
+    (label
+      :class "system_info"
+      :text "${fastfetch_output}"
+    )
+  )
+)
+
 ;;;;; Widgets END ;;;;;
 
 
@@ -548,12 +736,6 @@
     :vexpand "false"
     :hexpand "false"
 
-    (systray
-      :spacing "4"
-      :icon-size "24"
-      :orientation "h"
-      :prepend-new "true"
-    )
     (brightness)
     (bluetooth)
     (microphone)
@@ -656,6 +838,35 @@
   :namespace "eww-overlay"
 
   (brightness_menu_widget)
+)
+
+(defwindow system_menu
+  :monitor '[1, 0]'
+  :geometry (
+    geometry
+      :x "0px"
+      :y "-20px"
+      :width "300px"
+      :anchor "top left")
+  :stacking "overlay"
+  :namespace "eww-overlay"
+
+  (system_menu_widget)
+)
+
+(defwindow about_this_system
+  :monitor '[1, 0]'
+  :geometry (
+    geometry
+      :x "0px"
+      :y "0px"
+      :width "500px"
+      :height "500px"
+      :anchor "center")
+  :stacking "overlay"
+  :namespace "eww-overlay"
+
+  (about_this_system)
 )
 
 ;;;;;; Windows END ;;;;;;
