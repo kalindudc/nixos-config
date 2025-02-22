@@ -328,9 +328,9 @@
     :onhoverlost "${eww} update calendar=false"
     :cursor "pointer"
 
-	  (box
+    (box
       :class "cal-box"
-		  :orientation "v"
+      :orientation "v"
 
       (box
         :class "cal-inner-box"
@@ -392,23 +392,23 @@
       )
     )
     ; (box
-    ;   :class "menu_footer menu_item"
-    ;   :orientation "v"
-    ;   :space-evenly false
+      ;   :class "menu_footer menu_item"
+      ;   :orientation "v"
+      ;   :space-evenly false
 
-    ;   (eventbox
-    ;     :cursor "pointer"
+      ;   (eventbox
+        ;     :cursor "pointer"
 
-    ;     (button
-    ;       :class ""
-    ;       :onclick ""
+        ;     (button
+          ;       :class ""
+          ;       :onclick ""
 
-    ;       (label
-    ;         :xalign "0"
-    ;         :text "Power settings"
-    ;       )
-    ;     )
-    ;   )
+          ;       (label
+            ;         :xalign "0"
+            ;         :text "Power settings"
+          ;       )
+        ;     )
+      ;   )
     ; )
   )
 )
@@ -544,7 +544,8 @@
 
         (button
           :class "menu_button"
-          :onclick "${script_runner} menus/toggle_about_this_system_menu.sh"
+          ; :onclick "${script_runner} menus/toggle_about_this_system_menu.sh"
+          :onclick "hyprctl dispatch exec \"[float;size 800 600] ghostty --theme=dawnfox --window-padding-x=20 -e 'fastfetch --logo none; read -p \"\'Enter\'...\"'\" && ${script_runner} menus/close_all_menus.sh"
 
           (label
             :class "menu_button_label"
@@ -676,20 +677,20 @@
   )
 )
 
-(defwidget about_this_system []
-  (box
-    :class "menu_box"
-    :orientation "v"
-    :space-evenly false
+; (defwidget about_this_system []
+;   (box
+;     :class "menu_box"
+;     :orientation "v"
+;     :space-evenly false
 
-    (menu_header)
+;     (menu_header)
 
-    (label
-      :class "system_info"
-      :text "${fastfetch_output}"
-    )
-  )
-)
+;     (label
+;       :class "system_info"
+;       :text "${fastfetch_output}"
+;     )
+;   )
+; )
 
 ;;;;; Widgets END ;;;;;
 
@@ -770,11 +771,11 @@
   :monitor '[1, 0]'
   :geometry (
     geometry
-      :x "0px"
-      :y "0px"
-      :width "100%"
-      :height "0px"
-      :anchor "top center")
+    :x "0px"
+    :y "0px"
+    :width "100%"
+    :height "0px"
+  :anchor "top center")
   :stacking "bg"
   :exclusive "true"
   :focusable "false"
@@ -787,11 +788,11 @@
   :monitor '[1, 0]'
   :geometry (
     geometry
-      :x "10px"
-      :y "-20px"
-      :width "270px"
-      :height "60px"
-      :anchor "top right")
+    :x "10px"
+    :y "-20px"
+    :width "270px"
+    :height "60px"
+  :anchor "top right")
   :stacking "overlay"
   :namespace "eww-overlay"
 
@@ -802,10 +803,10 @@
   :monitor '[1, 0]'
   :geometry (
     geometry
-      :x "210px"
-      :y "-20px"
-      :width "270px"
-      :anchor "top right")
+    :x "210px"
+    :y "-20px"
+    :width "270px"
+  :anchor "top right")
   :stacking "overlay"
   :namespace "eww-overlay"
 
@@ -816,10 +817,10 @@
   :monitor '[1, 0]'
   :geometry (
     geometry
-      :x "300px"
-      :y "-20px"
-      :width "300px"
-      :anchor "top right")
+    :x "300px"
+    :y "-20px"
+    :width "300px"
+  :anchor "top right")
   :stacking "overlay"
   :namespace "eww-overlay"
 
@@ -830,10 +831,10 @@
   :monitor '[1, 0]'
   :geometry (
     geometry
-      :x "410px"
-      :y "-20px"
-      :width "300px"
-      :anchor "top right")
+    :x "410px"
+    :y "-20px"
+    :width "300px"
+  :anchor "top right")
   :stacking "overlay"
   :namespace "eww-overlay"
 
@@ -844,41 +845,41 @@
   :monitor '[1, 0]'
   :geometry (
     geometry
-      :x "0px"
-      :y "-20px"
-      :width "300px"
-      :anchor "top left")
+    :x "0px"
+    :y "-20px"
+    :width "300px"
+  :anchor "top left")
   :stacking "overlay"
   :namespace "eww-overlay"
 
   (system_menu_widget)
 )
 
-(defwindow about_this_system
-  :monitor '[1, 0]'
-  :geometry (
-    geometry
-      :x "0px"
-      :y "0px"
-      :width "500px"
-      :height "500px"
-      :anchor "center")
-  :stacking "overlay"
-  :namespace "eww-overlay"
+; (defwindow about_this_system
+;   :monitor '[1, 0]'
+;   :geometry (
+;     geometry
+;     :x "0px"
+;     :y "0px"
+;     :width "500px"
+;     :height "500px"
+;   :anchor "center")
+;   :stacking "overlay"
+;   :namespace "eww-overlay"
 
-  (about_this_system)
-)
+;   (about_this_system)
+; )
 
 ;;;;;; Windows END ;;;;;;
 
 
 ; https://github.com/elkowar/eww/issues/472#issuecomment-1146860335
 ; (defwidget closer [window]
-;   (eventbox :onclick "${eww} close ${window} && ${eww} close ${window}-closer"))
+  ;   (eventbox :onclick "${eww} close ${window} && ${eww} close ${window}-closer"))
 
 ; (defwindow calendar-closer
-;   :monitor 0
-;   :geometry (geometry :width "100%" :height "100%")
-;   :stacking "fg"
-;   :focusable false
-;   (closer :window "calendar"))
+  ;   :monitor 0
+  ;   :geometry (geometry :width "100%" :height "100%")
+  ;   :stacking "fg"
+  ;   :focusable false
+  ;   (closer :window "calendar"))
