@@ -2,7 +2,7 @@
   background-color: mix($background, $foreground, 95%);
   padding: 3px 8px 3px 8px;
   border-radius: 8px;
-  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.3);
   margin: 8px 8px 10px 8px;
   border: 1px solid $foreground;
 }
@@ -50,9 +50,13 @@
 .menu_box {
   background-color: mix($background, $foreground, 95%);
   border-radius: 8px;
-  padding: 18px 10px 18px 10px;
+  padding: 15px 10px 10px 10px;
   margin: 12px 10px 10px 10px;
+
+  // hyprland blur breaks the shadows but we need the
+  // blur for the frosted glass effect
   // box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
+
   border: 1px solid mix($background, $foreground, 5%);
 }
 
@@ -109,7 +113,7 @@
 .menu_button {
   // padding: 1px 5px 1px 5px;
   padding: 4px 8px 4px 8px;
-  border-radius: 5px;
+  border-radius: 3px;
   transition: all 0.15s ease-in-out;
   margin: 0px 0 0px 0;;
 }
@@ -275,11 +279,11 @@ label {
   min-height: 15px;
   min-width: 100px;
   margin: 0 .5rem 0 .1rem ;
-  transition: all 0.1s ease-in-out;
+  transition: all 0.13s ease-in-out;
 }
 
 .menu_slider trough highlight {
-  transition: all 0.1s ease-in-out;
+  transition: all 0.13s ease-in-out;
   min-height: 15px;
   background-color: mix($background, $foreground, 40%);
   border-radius: 15px;

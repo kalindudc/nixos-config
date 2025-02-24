@@ -27,6 +27,7 @@ fi
 
 eww="$($WORKING_DIR/../get_eww.sh ${OTHER_ARGS[@]})"
 
+$WORKING_DIR/close_menu.sh ${OTHER_ARGS[@]} -m system_menu
 case "$POWER_OPTION" in
   "lock")
     hyprlock
@@ -47,4 +48,3 @@ case "$POWER_OPTION" in
     usage
     ;;
 esac
-

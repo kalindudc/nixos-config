@@ -8,13 +8,6 @@
     efiSupport = true;
     useOSProber = true;
     fontSize = 24;
-
-    # Grub themes by: https://github.com/vinceliuice/Elegant-grub2-themes
-    theme = pkgs.stdenv.mkDerivation {
-      name = "elegant-grub2";
-      src = ../../../config/grub;
-      installPhase = "cp -r ./ $out";
-    };
   };
 
   boot.loader.efi.canTouchEfiVariables = true;
