@@ -677,6 +677,157 @@
   )
 )
 
+(defwidget wifi_menu_widget []
+  (box
+    :class "menu_box"
+    :orientation "v"
+    :space-evenly false
+    :visible {current_network_type == "wifi"}
+
+    (box
+      :class "menu_title menu_item"
+      :orientation "h"
+      :space-evenly true
+
+      (label
+        :class "menu_title_text"
+        :xalign "0"
+        :text "WiFi"
+      )
+      (label
+        :class "menu_title_subtext"
+        :xalign "1"
+        :text "wifi toggle"
+      )
+    )
+    (box
+      :class "menu_section menu_item"
+      :orientation "v"
+      :space-evenly false
+
+      (eventbox
+        :cursor "pointer"
+
+        (button
+          :class "menu_button"
+          :onclick ""
+
+          (label
+            :class "menu_button_label"
+            :xalign "0"
+            :text {current_network}
+          )
+        )
+      )
+    )
+    (box
+      :class "menu_separator_no_border"
+    )
+    (box
+      :class "menu_section menu_item"
+      :orientation "v"
+      :space-evenly false
+
+      (eventbox
+        :class "menu_section_text"
+        :cursor "pointer"
+
+        (button
+          :class "menu_button"
+          :onclick ""
+
+          (label
+            :class "menu_button_label"
+            :xalign "0"
+            :text "Network settings"
+          )
+        )
+      )
+    )
+  )
+)
+
+(defwidget ethernet_menu_widget []
+  (box
+    :class "menu_box"
+    :orientation "v"
+    :space-evenly false
+    :visible {current_network_type != "wifi"}
+
+    (box
+      :class "menu_title menu_item"
+      :orientation "h"
+      :space-evenly true
+
+      (label
+        :class "menu_title_text"
+        :xalign "0"
+        :text "Ethernet"
+      )
+      (label
+        :class "menu_title_subtext"
+        :xalign "1"
+        :text "${current_volume}%"
+      )
+    )
+    (box
+      :class "menu_section menu_item"
+      :orientation "v"
+      :space-evenly false
+
+      (eventbox
+        :cursor "pointer"
+
+        (scale
+          :class "menu_slider volume_slider"
+          :value current_volume
+          :orientation "horizontal"
+          :max 101
+          :min 0
+          :onchange
+
+          "pactl set-sink-volume @DEFAULT_SINK@ {}%"
+        )
+      )
+    )
+    (box
+      :class "menu_separator_no_border"
+    )
+    (box
+      :class "menu_section menu_item"
+      :orientation "v"
+      :space-evenly false
+
+      (eventbox
+        :class "menu_section_text"
+        :cursor "pointer"
+
+        (button
+          :class "menu_button"
+          :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+
+          (label
+            :class "menu_button_label"
+            :xalign "0"
+            :text "Mute: ${volume_icon}  ${is_audio_muted}"
+          )
+        )
+      )
+    )
+  )
+)
+
+(defwidget network_menu_widget []
+  ; manu should change if it's wifi or ethernet
+  ; add a variable to figure this out
+  (box
+    :orientation "v"
+
+    (wifi_menu_widget)
+    (ethernet_menu_widget)
+  )
+)
+
 ; (defwidget about_this_system []
 ;   (box
 ;     :class "menu_box"
@@ -866,7 +1017,7 @@
   :stacking "overlay"
   :namespace "eww-overlay"
 
-  (system_menu_widget)
+  (network_menu_widget)
 )
 
 ; (defwindow about_this_system

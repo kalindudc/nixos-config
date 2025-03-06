@@ -79,6 +79,7 @@
     cmake
     curl
     cpio
+    discord
     dnsutils
     ethtool
     fastfetch
@@ -139,6 +140,7 @@
     vscode
     wget
     which
+    whois
     xclip
     xdg-user-dirs
     xdg-utils
